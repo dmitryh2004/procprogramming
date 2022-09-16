@@ -27,7 +27,7 @@ void getvar(double& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "–ù–µ–≤–µ—Ä–Ω—ã–π –≤–≤–æ–¥" << endl;
         }
     }
     var = strtod(varstring.c_str(), nullptr);
@@ -47,7 +47,7 @@ void getvar(float& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "–ù–µ–≤–µ—Ä–Ω—ã–π –≤–≤–æ–¥" << endl;
         }
     }
     var = strtof(varstring.c_str(), nullptr);
@@ -68,7 +68,7 @@ void getvar(int& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "–ù–µ–≤–µ—Ä–Ω—ã–π –≤–≤–æ–¥" << endl;
         }
     }
     var = int(strtof(varstring.c_str(), nullptr));
@@ -84,7 +84,7 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    cout << "¬‡ÊÌÓ! »Á-Á‡ ÓÒÓ·ÂÌÌÓÒÚÂÈ ÔÓ„‡ÏÏ˚ ‰Ó·Ì˚Â ˜ËÒÎ‡ ÌÂÓ·ıÓ‰ËÏÓ ÔËÒ‡Ú¸ ˜ÂÂÁ\nÁ‡ÔˇÚÛ˛: ÌÂ 0.6, ‡ 0,6!" << endl;
+    cout << "–í–∞–∂–Ω–æ! –ò–∑-–∑–∞ –æ—Å–æ–±–µ–Ω–Ω–æ—Å—Ç–µ–π –ø—Ä–æ–≥—Ä–∞–º–º—ã –¥—Ä–æ–±–Ω—ã–µ —á–∏—Å–ª–∞ –Ω–µ–æ–±—Ö–æ–¥–∏–º–æ\n–ø–∏—Å–∞—Ç—å —á–µ—Ä–µ–∑ –∑–∞–ø\—Ç—É—é: –Ω–µ 0.6, –∞ 0,6!" << endl;
     system("pause");
     system("cls");
     f1();
@@ -108,25 +108,25 @@ void f1()
 {
     double m, S, n = 0, p = 0;
     cout << "===============================" << endl;
-    cout << "          «‡‰‡ÌËÂ 1" << endl;
+    cout << "          –ó–∞–¥–∞–Ω–∏–µ  1" << endl;
     cout << "-------------------------------" << endl;
-    cout << "«‡ÈÏ" << endl;
-    getvar(S, "¬‚Â‰ËÚÂ ÒÛÏÏÛ Á‡ÈÏ‡", true);
+    cout << "–ó–∞–µ–º" << endl;
+    getvar(S, "–í–≤–µ–¥–∏—Ç–µ —Å—É–º–º—É –∑–∞–µ–º–∞", true);
     while (n == 0)
     {
-        getvar(n, "¬‚Â‰ËÚÂ ÍÓÎË˜ÂÒÚ‚Ó ÎÂÚ", true);
+        getvar(n, "–í–≤–µ–¥–∏—Ç–µ –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ –ª–µ—Ç", true);
         if (n == 0)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "–ù–µ–≤–µ—Ä–Ω—ã–π –≤–≤–æ–¥" << endl;
         }
     }
 
     while (p == 0)
     {
-        getvar(p, "¬‚Â‰ËÚÂ ÔÓˆÂÌÚ", true);
+        getvar(p, "–í–≤–µ–¥–∏—Ç–µ –ø—Ä–æ—Ü–µ–Ω—Ç", true);
         if (p == 0)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "–ù–µ–≤–µ—Ä–Ω—ã–π –≤–≤–æ–¥" << endl;
         }
     }
 
@@ -135,32 +135,32 @@ void f1()
 
     m = S * p * pow(1 + p, n);
     m /= 12 * (pow(1 + p, n) - 1);
-    cout << "ÃÂÒˇ˜Ì‡ˇ ‚˚ÔÎ‡Ú‡ = " << m << endl;
+    cout << "–ú–µ—Å—è—á–Ω–∞—è –≤—ã–ø–ª–∞—Ç–∞ = " << m << endl;
 }
 
 void f2()
 {
     double m = 0, S, n = 0, p;
     cout << "===============================" << endl;
-    cout << "          «‡‰‡ÌËÂ 2" << endl;
+    cout << "          √á√†√§√†√≠√®√• 2" << endl;
     cout << "-------------------------------" << endl;
-    cout << "œÓˆÂÌÚ Á‡ÈÏ‡" << endl;
-    getvar(S, "¬‚Â‰ËÚÂ ÒÛÏÏÛ Á‡ÈÏ‡", true);
+    cout << "√è√∞√Æ√∂√•√≠√≤ √ß√†√©√¨√†" << endl;
+    getvar(S, "√Ç√¢√•√§√®√≤√• √±√≥√¨√¨√≥ √ß√†√©√¨√†", true);
     while (n == 0)
     {
-        getvar(n, "¬‚Â‰ËÚÂ ÍÓÎË˜ÂÒÚ‚Ó ÎÂÚ", true);
+        getvar(n, "√Ç√¢√•√§√®√≤√• √™√Æ√´√®√∑√•√±√≤√¢√Æ √´√•√≤", true);
         if (n == 0)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "√ç√•√¢√•√∞√≠√ª√© √¢√¢√Æ√§" << endl;
         }
     }
 
     while (m == 0)
     {
-        getvar(m, "¬‚Â‰ËÚÂ ÏÂÒˇ˜ÌÛ˛ ‚˚ÔÎ‡ÚÛ", true);
+        getvar(m, "√Ç√¢√•√§√®√≤√• √¨√•√±√ø√∑√≠√≥√æ √¢√ª√Ø√´√†√≤√≥", true);
         if (m == 0)
         {
-            cout << "ÕÂ‚ÂÌ˚È ‚‚Ó‰" << endl;
+            cout << "√ç√•√¢√•√∞√≠√ª√© √¢√¢√Æ√§" << endl;
         }
     }
 
@@ -172,7 +172,7 @@ void f2()
         t /= 12 * (pow(1 + r, n) - 1);
         if (t >= m)
         {
-            cout << "œÓˆÂÌÚ Á‡ÈÏ‡ ‚ ÔÂ‰ÂÎ‡ı [" << p - 0.1 << "; " << p << "]" << endl;
+            cout << "√è√∞√Æ√∂√•√≠√≤ √ß√†√©√¨√† √¢ √Ø√∞√•√§√•√´√†√µ [" << p - 0.1 << "; " << p << "]" << endl;
             break;
         }
     }
@@ -181,9 +181,9 @@ void f2()
 void f3()
 {
     cout << "===============================" << endl;
-    cout << "          «‡‰‡ÌËÂ 3" << endl;
+    cout << "          √á√†√§√†√≠√®√• 3" << endl;
     cout << "-------------------------------" << endl;
-    cout << "‘‡ÈÎ˚" << endl;
+    cout << "√î√†√©√´√ª" << endl;
     std::ifstream inf("files/file.txt");
     while (!inf.eof())
     {
@@ -201,9 +201,9 @@ void f3()
 void f4()
 {
     cout << "===============================" << endl;
-    cout << "          «‡‰‡ÌËÂ 4" << endl;
+    cout << "          √á√†√§√†√≠√®√• 4" << endl;
     cout << "-------------------------------" << endl;
-    cout << "‘ËÎ¸Ú" << endl;
+    cout << "√î√®√´√º√≤√∞" << endl;
     std::ifstream inf("files/filterfile.txt");
     while (!inf.eof())
     {
@@ -236,15 +236,15 @@ void f5()
     SetConsoleOutputCP(1251);
     int n = 0;
     char c[30];
-    string cond = "‡·‚„‰Â∏ÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇabcdefghijklmnopqrstuvwxyz¿¡¬√ƒ≈®∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    string cond = "√†√°√¢√£√§√•¬∏√¶√ß√®√©√™√´√¨√≠√Æ√Ø√∞√±√≤√≥√¥√µ√∂√∑√∏√π√∫√ª√º√Ω√æ√øabcdefghijklmnopqrstuvwxyz√Ä√Å√Ç√É√Ñ√Ö¬®√Ü√á√à√â√ä√ã√å√ç√é√è√ê√ë√í√ì√î√ï√ñ√ó√ò√ô√ö√õ√ú√ù√û√üABCDEFGHIJKLMNOPQRSTUVWXYZ";
     while (n < 30)
     {
         system("cls");
         cout << "===============================" << endl;
-        cout << "          «‡‰‡ÌËÂ 5" << endl;
+        cout << "          √á√†√§√†√≠√®√• 5" << endl;
         cout << "-------------------------------" << endl;
-        cout << "—ÓÚËÓ‚Í‡" << endl;
-        cout << "¬‚Ó‰ËÚÂ ·ÛÍ‚˚: (" << n << "/30) -> ";
+        cout << "√ë√Æ√∞√≤√®√∞√Æ√¢√™√†" << endl;
+        cout << "√Ç√¢√Æ√§√®√≤√• √°√≥√™√¢√ª: (" << n << "/30) -> ";
         c[n] = _getch();
         if (cond.find_first_of(c[n]) != string::npos)
         {
@@ -254,14 +254,14 @@ void f5()
         {
             system("cls");
             cout << "===============================" << endl;
-            cout << "          «‡‰‡ÌËÂ 5" << endl;
+            cout << "          √á√†√§√†√≠√®√• 5" << endl;
             cout << "-------------------------------" << endl;
-            cout << "—ÓÚËÓ‚Í‡" << endl;
-            cout << "¬‚Ó‰ËÚÂ ·ÛÍ‚˚: (30/30) -> ‚‚Â‰ÂÌÓ!";
+            cout << "√ë√Æ√∞√≤√®√∞√Æ√¢√™√†" << endl;
+            cout << "√Ç√¢√Æ√§√®√≤√• √°√≥√™√¢√ª: (30/30) -> √¢√¢√•√§√•√≠√Æ!";
             cout << endl;
         }
     }
-    cout << "»ÒıÓ‰Ì˚Â ·ÛÍ‚˚: ";
+    cout << "√à√±√µ√Æ√§√≠√ª√• √°√≥√™√¢√ª: ";
     for (int i = 0; i < 30; i++)
         cout << c[i];
     cout << endl;
@@ -277,7 +277,7 @@ void f5()
         }
     }
 
-    cout << "ŒÚÒÓÚËÓ‚‡ÌÌ˚Â ·ÛÍ‚˚: ";
+    cout << "√é√≤√±√Æ√∞√≤√®√∞√Æ√¢√†√≠√≠√ª√• √°√≥√™√¢√ª: ";
     for (int i = 0; i < 30; i++)
         cout << c[i];
     cout << endl;
