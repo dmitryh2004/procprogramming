@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1663341086 source:c:\users\ivc6-10\desktop\codeblocks projects\khdi_practica3\main.cpp
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	<locale.h>
+	<conio.h>
+	<cmath>
+	<string>
+	<fstream>
+	<Windows.h>
+
