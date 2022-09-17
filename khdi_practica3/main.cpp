@@ -142,25 +142,25 @@ void f2()
 {
     double m = 0, S, n = 0, p;
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå 2" << endl;
+    cout << "          Задание 2" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Ïðîöåíò çàéìà" << endl;
-    getvar(S, "Ââåäèòå ñóììó çàéìà", true);
+    cout << "Процент заема" << endl;
+    getvar(S, "Введите сумму заема", true);
     while (n == 0)
     {
-        getvar(n, "Ââåäèòå êîëè÷åñòâî ëåò", true);
+        getvar(n, "Введите количество лет", true);
         if (n == 0)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "Неверный ввод" << endl;
         }
     }
 
     while (m == 0)
     {
-        getvar(m, "Ââåäèòå ìåñÿ÷íóþ âûïëàòó", true);
+        getvar(m, "Введите месячную выплату", true);
         if (m == 0)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "Неверный ввод" << endl;
         }
     }
 
@@ -172,7 +172,7 @@ void f2()
         t /= 12 * (pow(1 + r, n) - 1);
         if (t >= m)
         {
-            cout << "Ïðîöåíò çàéìà â ïðåäåëàõ [" << p - 0.1 << "; " << p << "]" << endl;
+            cout << "Процент займа в пределах [" << p - 0.1 << "; " << p << "]" << endl;
             break;
         }
     }
@@ -181,9 +181,9 @@ void f2()
 void f3()
 {
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå 3" << endl;
+    cout << "          Задание 3" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Ôàéëû" << endl;
+    cout << "Файлы" << endl;
     std::ifstream inf("files/file.txt");
     while (!inf.eof())
     {
@@ -201,9 +201,9 @@ void f3()
 void f4()
 {
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå 4" << endl;
+    cout << "          Задание 4" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Ôèëüòð" << endl;
+    cout << "Фильтр" << endl;
     std::ifstream inf("files/filterfile.txt");
     while (!inf.eof())
     {
@@ -236,15 +236,15 @@ void f5()
     SetConsoleOutputCP(1251);
     int n = 0;
     char c[30];
-    string cond = "àáâãäå¸æçèéêëìíîïðñòóôõö÷øùúûüýþÿabcdefghijklmnopqrstuvwxyzÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    string cond = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     while (n < 30)
     {
         system("cls");
         cout << "===============================" << endl;
-        cout << "          Çàäàíèå 5" << endl;
+        cout << "          Задание 5" << endl;
         cout << "-------------------------------" << endl;
-        cout << "Ñîðòèðîâêà" << endl;
-        cout << "Ââîäèòå áóêâû: (" << n << "/30) -> ";
+        cout << "Сортировка" << endl;
+        cout << "Вводите буквы: (" << n << "/30) -> ";
         c[n] = _getch();
         if (cond.find_first_of(c[n]) != string::npos)
         {
@@ -254,14 +254,14 @@ void f5()
         {
             system("cls");
             cout << "===============================" << endl;
-            cout << "          Çàäàíèå 5" << endl;
+            cout << "          Задание 5" << endl;
             cout << "-------------------------------" << endl;
-            cout << "Ñîðòèðîâêà" << endl;
-            cout << "Ââîäèòå áóêâû: (30/30) -> ââåäåíî!";
+            cout << "Сортировка" << endl;
+            cout << "Вводите буквы: (30/30) -> введено!";
             cout << endl;
         }
     }
-    cout << "Èñõîäíûå áóêâû: ";
+    cout << "Исходные буквы: ";
     for (int i = 0; i < 30; i++)
         cout << c[i];
     cout << endl;
@@ -277,7 +277,7 @@ void f5()
         }
     }
 
-    cout << "Îòñîðòèðîâàííûå áóêâû: ";
+    cout << "Отсортированные буквы: ";
     for (int i = 0; i < 30; i++)
         cout << c[i];
     cout << endl;
