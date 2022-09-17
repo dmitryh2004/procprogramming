@@ -30,7 +30,7 @@ void getvar(double& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "Неверный ввод" << endl;
+            cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ" << endl;
         }
     }
     var = strtod(varstring.c_str(), nullptr);
@@ -50,7 +50,7 @@ void getvar(float& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "Неверный ввод" << endl;
+            cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ" << endl;
         }
     }
     var = strtof(varstring.c_str(), nullptr);
@@ -71,7 +71,7 @@ void getvar(int& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "Неверный ввод" << endl;
+            cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ" << endl;
         }
     }
     var = int(strtof(varstring.c_str(), nullptr));
@@ -80,48 +80,48 @@ void getvar(int& var, string hintMessage, bool Positive)
 void sign(double a)
 {
     if (a < 0)
-        cout << "Отрицательное число, знак = -1";
+        cout << "РћС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, Р·РЅР°Рє = -1";
     else if (a == 0)
-        cout << "Ноль, знак = 0";
+        cout << "РќРѕР»СЊ, Р·РЅР°Рє = 0";
     else
-        cout << "Положительное число, знак = 1";
+        cout << "РџРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, Р·РЅР°Рє = 1";
 }
 
 void circle()
 {
     double r;
-    getvar(r, "Введите радиус", true);
+    getvar(r, "Р’РІРµРґРёС‚Рµ СЂР°РґРёСѓСЃ", true);
     double S = pi * r * r;
-    cout << "Площадь круга = " << S << endl;
+    cout << "РџР»РѕС‰Р°РґСЊ РєСЂСѓРіР° = " << S << endl;
 }
 
 void triangle()
 {
     double a, b, c;
-    getvar(a, "Введите сторону а", true);
-    getvar(b, "Введите сторону b", true);
-    getvar(c, "Введите сторону с", true);
+    getvar(a, "Р’РІРµРґРёС‚Рµ СЃС‚РѕСЂРѕРЅСѓ a", true);
+    getvar(b, "Р’РІРµРґРёС‚Рµ СЃС‚РѕСЂРѕРЅСѓ b", true);
+    getvar(c, "Р’РІРµРґРёС‚Рµ СЃС‚РѕСЂРѕРЅСѓ c", true);
 
     if ((a + b < c) || (a + c < b) || (b + c < a))
     {
-        cout << "Такой треугольник не существует" << endl;
+        cout << "РўР°РєРѕР№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚" << endl;
     }
     else
     {
         double p = (a + b + c) / 2;
         double S;
         S = sqrt(p * (p - a) * (p - b) * (p - c));
-        cout << "Площадь треугольника = " << S << endl;
+        cout << "РџР»РѕС‰Р°РґСЊ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° = " << S << endl;
     }
 }
 
 void pryamougolnik()
 {
     double a,b;
-    getvar(a, "Введите сторону а", true);
-    getvar(b, "Введите сторону b", true);
+    getvar(a, "Р’РІРµРґРёС‚Рµ СЃС‚РѕСЂРѕРЅСѓ Г ", true);
+    getvar(b, "Р’РІРµРґРёС‚Рµ СЃС‚РѕСЂРѕРЅСѓ b", true);
 
-    cout << "Площадь = " << a * b << endl;
+    cout << "РџР»РѕС‰Р°РґСЊ = " << a * b << endl;
 }
 
 void f1();
@@ -136,7 +136,7 @@ int main()
     SetConsoleOutputCP(1251);
     setlocale(LC_ALL, "Russian");
 
-    cout << "Важно! Из-за особенностей программы дробные числа необходимо писать через\nзапятую: не 0.6, а 0,6!" << endl;
+    cout << "Р’Р°Р¶РЅРѕ! РР·-Р·Р° РѕСЃРѕР±РµРЅРЅРѕСЃС‚РµР№ РїСЂРѕРіСЂР°РјРјС‹ РґСЂРѕР±РЅС‹Рµ С‡РёСЃР»Р° РЅРµРѕР±С…РѕРґРёРјРѕ\nРїРёСЃР°С‚СЊ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ: РЅРµ 0.6, Р° 0,6!" << endl;
     system("pause");
     system("cls");
     f1();
@@ -165,24 +165,24 @@ void f1()
     while (n != 10)
     {
         cout << "===============================" << endl;
-        cout << "          Задание 1" << endl;
+        cout << "          Р—Р°РґР°РЅРёРµ 1" << endl;
         cout << "-------------------------------" << endl;
-        cout << "Файл с числами" << endl;
-        string hint = "Вводите числа (" + std::to_string(n) + "/10)";
+        cout << "Р¤Р°Р№Р» СЃ С‡РёСЃР»Р°РјРё" << endl;
+        string hint = "Р’РІРѕРґРёС‚Рµ С‡РёСЃР»Р° (" + std::to_string(n) + "/10)";
         getvar(t, hint, false);
         outf << t << endl;
         n++;
         system("cls");
     }
     cout << "===============================" << endl;
-    cout << "          Задание 1" << endl;
+    cout << "          Р—Р°РґР°РЅРёРµ 1" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Файл с числами" << endl;
-    cout << "Вводите числа (10/10) -> введено!" << endl;
+    cout << "Р¤Р°Р№Р» СЃ С‡РёСЃР»Р°РјРё" << endl;
+    cout << "Р’РІРѕРґРёС‚Рµ С‡РёСЃР»Р° (10/10) -> РІРІРµРґРµРЅРѕ!" << endl;
     outf.close();
-    cout << endl << "Файл закрыт" << endl;
+    cout << endl << "Р¤Р°Р№Р» Р·Р°РєСЂС‹С‚" << endl;
     std::ifstream inf("files/file1.txt");
-    cout << endl << "Файл открыт" << endl;
+    cout << endl << "Р¤Р°Р№Р» РѕС‚РєСЂС‹С‚" << endl;
     double S = 0;
     while (!inf.eof())
     {
@@ -191,17 +191,17 @@ void f1()
         S += strtod(temp.c_str(), nullptr);
     }
     inf.close();
-    cout << "Сумма = " << S << endl;
+    cout << "РЎСѓРјРјР° = " << S << endl;
 }
 
 void f2()
 {
     cout << "===============================" << endl;
-    cout << "          Задание 2" << endl;
+    cout << "          Р—Р°РґР°РЅРёРµ 2" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Знак числа" << endl;
+    cout << "Р—РЅР°Рє С‡РёСЃР»Р°" << endl;
     double n;
-    getvar(n, "Введите число", false);
+    getvar(n, "Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ", false);
     sign(n);
     cout << endl;
 }
@@ -209,10 +209,10 @@ void f2()
 void f3()
 {
     cout << "===============================" << endl;
-    cout << "          Задание 3" << endl;
+    cout << "          Р—Р°РґР°РЅРёРµ 3" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Площади" << endl;
-    cout << "Выберите фигуру: прямоугольник = P, треугольник = T, круг = C";
+    cout << "РџР»РѕС‰Р°РґСЊ" << endl;
+    cout << "Р’С‹Р±РµСЂРёС‚Рµ С„РёРіСѓСЂСѓ: РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє = P, С‚СЂРµСѓРіРѕР»СЊРЅРёРє = T, РєСЂСѓРі = C";
     char c = '0';
     while (!((c == 'C') || (c == 'c') || (c == 'T') || (c == 't') || (c == 'P') || (c == 'p')))
     {
@@ -241,9 +241,9 @@ void f3()
 void f4()
 {
     cout << "===============================" << endl;
-    cout << "          Задание 4" << endl;
+    cout << "          Р—Р°РґР°РЅРёРµ 4" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Флаг США" << endl;
+    cout << "Р¤Р»Р°Рі РЎРЁРђ" << endl;
     for (int i = 0; i < 13; i++)
     {
         for (int j = 0; j < 20; j++)
@@ -264,9 +264,9 @@ void f4()
 void f5()
 {
     cout << "===============================" << endl;
-    cout << "          Задание 5" << endl;
+    cout << "          Р—Р°РґР°РЅРёРµ 5" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Синусоида" << endl;
+    cout << "РЎРёРЅСѓСЃРѕРёРґР°" << endl;
     cout << "                                                  ^ y" << endl;
     char g[101][21];
     for (int i = 0; i < 101; i++)
