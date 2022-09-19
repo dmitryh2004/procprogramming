@@ -1,0 +1,28 @@
+#include <iostream>
+#include <locale.h>
+#include <string>
+using namespace std;
+
+int findplace(string cond, char a)
+{
+	for (int i=0; i<cond.size(); i++)
+	{
+		if (cond[i] == a)
+		    return i;
+	}
+}
+int main(int argc, char *argv[])
+{
+	setlocale(LC_ALL, "russian");
+	string s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЮЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+	string a = "dqAPgylbDавхwjjFdodlvkvkфЫxjshdjxjckvAERBHPadybdolbaebaWfuboqwertyuiраopasdfghjklzxcvbnmMМNBоVCXZLKJHждGFSAAPOIИUYTREQ";
+	for (int i = 0; i < a.size(); i++)
+	{
+		for (int j = 0; j < a.size(); j++)
+		{
+			if (findplace(s, a[i]) < findplace(s, a[j]))
+			swap (a[i], a[j]);
+		}
+	}
+	cout << a;
+} 
