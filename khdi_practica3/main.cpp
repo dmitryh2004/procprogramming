@@ -27,7 +27,7 @@ void getvar(double& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
     var = strtod(varstring.c_str(), nullptr);
@@ -47,7 +47,7 @@ void getvar(float& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
     var = strtof(varstring.c_str(), nullptr);
@@ -68,7 +68,7 @@ void getvar(int& var, string hintMessage, bool Positive)
         getline(cin, varstring);
         if (varstring.find_first_not_of(check_cond) != string::npos)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
     var = int(strtof(varstring.c_str(), nullptr));
@@ -84,7 +84,7 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    cout << "Âàæíî! Èç-çà îñîáåííîñòåé ïðîãðàììû äðîáíûå ÷èñëà íåîáõîäèìî\nïèñàòü ÷åðåç çàïÿòóþ: íå 0.6, à 0,6!" << endl;
+    cout << "Ð’Ð°Ð¶Ð½Ð¾! Ð˜Ð·-Ð·Ð° Ð¾ÑÐ¾Ð±ÐµÐ½Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹ Ð´Ñ€Ð¾Ð±Ð½Ñ‹Ðµ Ñ‡Ð¸ÑÐ»Ð° Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾\nÐ¿Ð¸ÑÐ°Ñ‚ÑŒ Ñ‡ÐµÑ€ÐµÐ· Ð·Ð°Ð¿ÑÑ‚ÑƒÑŽ: Ð½Ðµ 0.6, Ð° 0,6!" << endl;
     system("pause");
     system("cls");
     f1();
@@ -108,25 +108,25 @@ void f1()
 {
     double m, S, n = 0, p = 0;
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå  1" << endl;
+    cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ  1" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Çàåì" << endl;
-    getvar(S, "Ââåäèòå ñóììó çàåìà", true);
+    cout << "Ð—Ð°ÐµÐ¼" << endl;
+    getvar(S, "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑƒÐ¼Ð¼Ñƒ Ð·Ð°ÐµÐ¼Ð°", true);
     while (n == 0)
     {
-        getvar(n, "Ââåäèòå êîëè÷åñòâî ëåò", true);
+        getvar(n, "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð»ÐµÑ‚", true);
         if (n == 0)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
 
     while (p == 0)
     {
-        getvar(p, "Ââåäèòå ïðîöåíò", true);
+        getvar(p, "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚", true);
         if (p == 0)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
 
@@ -135,32 +135,32 @@ void f1()
 
     m = S * p * pow(1 + p, n);
     m /= 12 * (pow(1 + p, n) - 1);
-    cout << "Ìåñÿ÷íàÿ âûïëàòà = " << m << endl;
+    cout << "ÐœÐµÑÑÑ‡Ð½Ð°Ñ Ð²Ñ‹Ð¿Ð»Ð°Ñ‚Ð° = " << m << endl;
 }
 
 void f2()
 {
     double m = 0, S, n = 0, p;
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå 2" << endl;
+    cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 2" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Ïðîöåíò çàåìà" << endl;
-    getvar(S, "Ââåäèòå ñóììó çàåìà", true);
+    cout << "ÐŸÑ€Ð¾Ñ†ÐµÐ½Ñ‚ Ð·Ð°Ð¹Ð¼Ð°" << endl;
+    getvar(S, "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑƒÐ¼Ð¼Ñƒ Ð·Ð°ÐµÐ¼Ð°", true);
     while (n == 0)
     {
-        getvar(n, "Ââåäèòå êîëè÷åñòâî ëåò", true);
+        getvar(n, "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð»ÐµÑ‚", true);
         if (n == 0)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
 
     while (m == 0)
     {
-        getvar(m, "Ââåäèòå ìåñÿ÷íóþ âûïëàòó", true);
+        getvar(m, "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼ÐµÑÑÑ‡Ð½ÑƒÑŽ Ð²Ñ‹Ð¿Ð»Ð°Ñ‚Ñƒ", true);
         if (m == 0)
         {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
         }
     }
 
@@ -172,7 +172,7 @@ void f2()
         t /= 12 * (pow(1 + r, n) - 1);
         if (t >= m)
         {
-            cout << "Ïðîöåíò çàéìà â ïðåäåëàõ [" << p - 0.1 << "; " << p << "]" << endl;
+            cout << "ÐŸÑ€Ð¾Ñ†ÐµÐ½Ñ‚ Ð·Ð°Ð¹Ð¼Ð° Ð² Ð¿Ñ€ÐµÐ´ÐµÐ»Ð°Ñ… [" << p - 0.1 << "; " << p << "]" << endl;
             break;
         }
     }
@@ -181,9 +181,9 @@ void f2()
 void f3()
 {
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå 3" << endl;
+    cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 3" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Ôàéëû" << endl;
+    cout << "Ð¤Ð°Ð¹Ð»Ñ‹" << endl;
     std::ifstream inf("files/file.txt");
     if (inf)
     {
@@ -196,7 +196,7 @@ void f3()
     }
     else
     {
-        cout << "Èñõîäíûé ôàéë (files/file.txt) íå íàéäåí" << endl;
+        cout << "Ð˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð» (files/file.txt) Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½" << endl;
     }
     std::ofstream ouf("files/ofile.txt");
     ouf << "Bla bla bla" << endl << "Bla BlA" << endl;
@@ -207,9 +207,9 @@ void f3()
 void f4()
 {
     cout << "===============================" << endl;
-    cout << "          Çàäàíèå 4" << endl;
+    cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 4" << endl;
     cout << "-------------------------------" << endl;
-    cout << "Ôèëüòð" << endl;
+    cout << "Ð¤Ð¸Ð»ÑŒÑ‚Ñ€" << endl;
     std::ifstream inf("files/filterfile.txt");
     bool last_ch_is_num = false;
     if (inf)
@@ -245,7 +245,7 @@ void f4()
     }
     else
     {
-        cout << "Èñõîäíûé ôàéë (files/filterfile.txt) íå íàéäåí" << endl;
+        cout << "Ð˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð» (files/filterfile.txt) Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½" << endl;
     }
     cout << endl;
 }
@@ -262,19 +262,19 @@ int findplace(string cond, char a)
 
 void f5()
 {
-    //ñ ðóññêèìè áóêâàìè íóæíî êîìïèëèòü â vs
+    //Ñ Ñ€ÑƒÑÑÐºÐ¸Ð¼Ð¸ Ð±ÑƒÐºÐ²Ð°Ð¼Ð¸ Ð´Ð¾Ð¿Ð¸ÑÐ°Ñ‚ÑŒ consoleCP(1251) Ð² vs
     int n = 0;
-    string s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÞÜÝÞßàáâãäå¸æçèéêëìíîïðñòóôõö÷øùúûüýþÿ";
+    string s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÃ€ÃÃ‚ÃƒÃ„Ã…Â¨Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃŽÃÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã—Ã˜Ã™ÃšÃžÃœÃÃžÃŸÃ Ã¡Ã¢Ã£Ã¤Ã¥Â¸Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã·Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¾Ã¿";
     string a = "";
     char last = ' ';
     while (last != '0')
     {
         system("cls");
         cout << "===============================" << endl;
-        cout << "          Çàäàíèå 5" << endl;
+        cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 5" << endl;
         cout << "-------------------------------" << endl;
-        cout << "Ñîðòèðîâêà" << endl;
-        cout << "Ââîäèòå áóêâû: (ââåäèòå 0 ÷òîáû çàêîí÷èòü ââîä, ââåäåíî áóêâ: " << n << ") -> ";
+        cout << "Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ°" << endl;
+        cout << "Ð’Ð²Ð¾Ð´Ð¸Ñ‚Ðµ Ð±ÑƒÐºÐ²Ñ‹: (Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð·Ð°ÐºÐ¾Ð½Ñ‡Ð¸Ñ‚ÑŒ, Ð²Ð²ÐµÐ´ÐµÐ½Ð¾ Ð±ÑƒÐºÐ²: " << n << ") -> ";
         last = _getch();
         if (s.find_first_of(last) != string::npos)
         {
@@ -285,14 +285,14 @@ void f5()
         {
             system("cls");
             cout << "===============================" << endl;
-            cout << "          Çàäàíèå 5" << endl;
+            cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 5" << endl;
             cout << "-------------------------------" << endl;
-            cout << "Ñîðòèðîâêà" << endl;
-            cout << "Ââîäèòå áóêâû: (ââåäåíî áóêâ: " << n << ")";
+            cout << "Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ°" << endl;
+            cout << "Ð’Ð²Ð¾Ð´Ð¸Ñ‚Ðµ Ð±ÑƒÐºÐ²Ñ‹: (Ð²Ð²ÐµÐ´ÐµÐ½Ð¾ Ð±ÑƒÐºÐ²: " << n << ")";
             cout << endl;
         }
     }
-    cout << "Èñõîäíûå áóêâû: " << a << endl;
+    cout << "Ð˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ðµ Ð±ÑƒÐºÐ²Ñ‹: " << a << endl;
 
     for (int i = 0; i < a.size(); i++)
     {
@@ -305,5 +305,5 @@ void f5()
         }
     }
 
-    cout << "Îòñîðòèðîâàííûå áóêâû: " << a << endl;
+    cout << "ÐžÑ‚ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð±ÑƒÐºÐ²Ñ‹: " << a << endl;
 }
