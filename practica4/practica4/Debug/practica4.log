@@ -1,0 +1,5 @@
+﻿  practica4.cpp
+d:\cppfiles\mirea\practica4\practica4\practica4\practica4.cpp(568): warning C4018: <: несоответствие типов со знаком и без знака
+d:\cppfiles\mirea\practica4\practica4\practica4\practica4.cpp(611): warning C4018: <: несоответствие типов со знаком и без знака
+d:\cppfiles\mirea\practica4\practica4\practica4\practica4.cpp(627): warning C4244: +=: преобразование "double" в "int64_t", возможна потеря данных
+  practica4.vcxproj -> D:\CppFiles\mirea\practica4\practica4\Debug\practica4.exe
