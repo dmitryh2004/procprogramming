@@ -1,0 +1,106 @@
+#include <iostream>
+#include <iomanip>
+#include <locale.h>
+#include <cmath>
+
+using namespace std;
+
+void show_complex(double a, double b)
+{
+    if (b < 0)
+        cout << a << " - " << abs(b) << " * i";
+    else
+        cout << a << " + " << b << " * i";
+}
+
+void show_complex_tr(double r, double fi)
+{
+    if (r * sin(fi) < 0)
+        cout << r * cos(fi) << " - " << r * sin(fi) << " * i";
+    else
+        cout << r * cos(fi) << " + " << r * sin(fi) << " * i";
+}
+
+void power_complex(double& a, double& b, int power)
+{
+    for (int i = 1; i <= power; i++)
+    {
+        int ta = a*a - b*b;
+        int tb = b*a + a*b;
+        a = ta;
+        b = tb;
+    }
+}
+
+void sqrt_complex(double a, double b, int sqrt_p)
+{
+    double R;
+    double fi;
+    R = sqrt(a*a + b*b);
+    fi = asin(b / (a*a + b*b));
+    double fi2;
+    cout << "Корни " << sqrt_p << "-й степени из числа ";
+    show_complex(a, b);
+    cout << ":\n";
+    for (int i = 0; i < sqrt_p; i++)
+    {
+        fi2 = (fi + 2 * i * 3.14) / sqrt_p;
+        show_complex_tr(pow(R, 1/sqrt_p), fi2);
+        cout << "\n";
+    }
+}
+
+int main()
+{
+    cout << fixed;
+    setlocale(LC_CTYPE, "rus");
+    double a, b, c, d;
+    cout << "Калькулятор комплексных чисел\n";
+    cout << "Число 1: a + bi\nЧисло 2: c + di\n";
+    cout << "Введите а: ";
+    cin >> a;
+    cout << "Введите b: ";
+    cin >> b;
+    cout << "Введите c: ";
+    cin >> c;
+    cout << "Введите d: ";
+    cin >> d;
+    cout << "Числа: ";
+    show_complex(a,b);
+    cout << ", ";
+    show_complex(c,d);
+    cout << "\n";
+    cout << "Сумма: ";
+    show_complex(a+c, b+d);
+    cout << "\n";
+    cout << "Разность: ";
+    show_complex(a-c, b-d);
+    cout << "\n";
+    cout << "Произведение: ";
+    show_complex(a*c - b*d, b*c + a*d);
+    cout << "\n";
+    cout << "Частное: ";
+    show_complex((a*c+b*d) / (c*c+d*d), (a*d+b*c) / (c*c+d*d));
+    cout << "\n";
+    int power, sqrt_power;
+    cout << "Введите степень для возведения чисел: ";
+    cin >> power;
+    cout << "Введите степень для извлечения корня из чисел: ";
+    cin >> sqrt_power;
+    double a1 = a, b1 = b, c1 = c, d1 = d;
+    power_complex(a1, b1, power);
+    power_complex(c1, d1, power);
+    cout << "Число 1 в " << power << " степени: ";
+    show_complex(a1, b1);
+    cout << "\n";
+    cout << "Число 2 в " << power << " степени: ";
+    show_complex(c1, d1);
+    cout << "\n";
+    a1 = a;
+    b1 = b;
+    c1 = c;
+    d1 = d;
+    sqrt_complex(a1, b1, sqrt_power);
+    sqrt_complex(c1, d1, sqrt_power);
+    return 0;
+}
