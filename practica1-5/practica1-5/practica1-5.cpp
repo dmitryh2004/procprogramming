@@ -1036,11 +1036,15 @@ void f4_4()
 		{
 			if ((i < 6) && (j < 8))
 			{
+				SetColor(9, 15);
 				cout << "*";
+				SetColor(0, 15);
 			}
 			else
 			{
+				SetColor(12, 15);
 				cout << "_";
+				SetColor(0, 15);
 			}
 		}
 		cout << endl;
