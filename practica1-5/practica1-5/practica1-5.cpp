@@ -709,18 +709,33 @@ void f3_2()
 		}
 	}
 
-	for (p = 0;; p += 0.1)
-	{
-		double r = p / 100;
+	double left = -1 * pow(10, 10), right = pow(10, 10), middle = 0;
 
-		double t = S * r * pow(1 + r, n);
-		t /= 12 * (pow(1 + r, n) - 1);
-		if (t >= m)
+	while (true)
+	{
+		middle = (left + right) / 2;
+		double r = middle / 100;
+		double t;
+		if (r == 0)
+			t = S / 12 / n;
+		else
 		{
-			cout << "Процент займа в пределах [" << p - 0.1 << "; " << p << "]" << endl;
+			t = S * r * pow(1 + r, n);
+			t /= 12 * (pow(1 + r, n) - 1);
+		}
+
+		if (abs(t - m) < 0.01)
 			break;
+		if (t > m)
+		{
+			right = middle;
+		}
+		if (t < m)
+		{
+			left = middle;
 		}
 	}
+	cout << "Процент займа: " << middle << endl;
 }
 
 void f3_3()
