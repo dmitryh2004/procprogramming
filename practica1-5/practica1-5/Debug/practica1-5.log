@@ -1,0 +1,10 @@
+﻿  practica1-5.cpp
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(33): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(44): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(736): warning C4244: инициализация: преобразование "std::streamsize" в "int", возможна потеря данных
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(786): warning C4101: p: неиспользованная локальная переменная
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(976): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(978): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(1507): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\маша\source\repos\practica1-5\practica1-5\practica1-5.cpp(1523): warning C4244: +=: преобразование "double" в "int64_t", возможна потеря данных
+  practica1-5.vcxproj -> C:\Users\Маша\source\repos\practica1-5\Debug\practica1-5.exe
