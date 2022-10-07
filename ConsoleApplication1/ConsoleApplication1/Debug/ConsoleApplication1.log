@@ -1,0 +1,11 @@
+﻿  ConsoleApplication1.cpp
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(33,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(44,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(744,11): warning C4244: инициализация: преобразование "std::streamsize" в "int", возможна потеря данных
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(799,26): warning C4101: p: неиспользованная локальная переменная
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(1003,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(1005,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(1015,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(1565,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(1581,65): warning C4244: +=: преобразование "double" в "int64_t", возможна потеря данных
+  ConsoleApplication1.vcxproj -> C:\Users\ivc6-10\source\repos\ConsoleApplication1\Debug\ConsoleApplication1.exe
