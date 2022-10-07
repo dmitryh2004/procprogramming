@@ -1262,7 +1262,7 @@ int rim_process(int dec, int lastN, int lastDec)
 	return (lastN > dec) ? (lastDec - dec) : (lastDec + dec);
 }
 
-void f4_6()
+void f4_6() //ПЕРЕДЕЛАТЬ!!!
 {
 	system("cls");
 	SetColor(0, 14);
