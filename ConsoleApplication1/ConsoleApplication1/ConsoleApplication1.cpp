@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>
 #include <locale.h>
 #include <string>
@@ -47,6 +47,34 @@ int num_of_symbols(string str, char ch)
 			num++;
 	}
 	return num;
+}
+
+void replaceall(string& str, string search, string replace)
+{
+	int index = 0;
+	while (index < str.size())
+	{
+		size_t s = str.find(search, index);
+		if (s == string::npos)
+			break;
+		else
+		{
+			str.erase(s, search.length());
+			str.insert(s, replace);
+			index = s;
+		}
+	}
+}
+
+string reverse(string arg)
+{
+	int length = arg.size();
+	string temp = arg;
+	for (int i = 0, j = length - 1; i < j; i++, j--)
+	{
+		swap(temp[i], temp[j]);
+	}
+	return temp;
 }
 
 void getvar(double& var, string hintMessage, bool Positive)
@@ -1257,7 +1285,7 @@ void f4_5()
 	}
 }
 
-int rim_process(int dec, int lastN, int lastDec)
+/*int rim_process(int dec, int lastN, int lastDec)
 {
 	return (lastN > dec) ? (lastDec - dec) : (lastDec + dec);
 }
@@ -1361,6 +1389,144 @@ void f4_6() //ПЕРЕДЕЛАТЬ!!!
 	}
 
 	cout << "Число в арабской системе - " << num << endl;
+}*/
+
+void f4_6()
+{
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 4-6" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Римские цифры" << endl;
+	SetColor(0, 15);
+	string rim = "a";
+	char poss[] = { //Возможные символы
+		'I', 'A', 'V', 'B', 'X', 'E', 'L', 'F', 'C', 'G', 'D', 'H', 'M'
+		//I  IV   V     IX   X   XL   L    XC    C   CD    D   CM    M
+	}; //пояснение: здесь введены другие символы для комбинаций из 2 "классических" римских символов.
+	// Это сделано для упрощения кода программы, так как 2 символа считается за один.
+	// Для каждого нового символа приведена "старая" комбинация.
+	int equals[] = { //Значения в десятичной системе, которым эквивалентны возможные символы
+		1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000
+	};
+	int out = 0;
+	while (rim.find_first_not_of("IVXLCDM") != string::npos) //ввод числа. При этом исключаются 
+		                                                     //все не относящиеся к римским цифрам символы
+	{
+		cout << "Введите положительное число в римской системе счисления \nВозможные символы: IVXLCDM -> ";
+		cin >> rim;
+		if (rim.find_first_not_of("IVXLCDM") != string::npos)
+		{
+			cout << "Неверный ввод" << endl;
+		}
+	}
+	string rim2 = reverse(rim); //сохраняем число, записанное наоборот, в другую строку
+	replaceall(rim, "IV", "A"); //замена комбинаций из 2 символов на 1 символ
+	replaceall(rim, "IX", "B");
+	replaceall(rim, "XL", "E");
+	replaceall(rim, "XC", "F");
+	replaceall(rim, "CD", "G");
+	replaceall(rim, "CM", "H");
+
+	replaceall(rim2, "MC", "H"); //то же самое, но в обратном порядке
+	replaceall(rim2, "DC", "G");
+	replaceall(rim2, "CX", "F");
+	replaceall(rim2, "LX", "E");
+	replaceall(rim2, "XI", "B");
+	replaceall(rim2, "VI", "A");
+	
+	rim2 = reverse(rim2); 
+
+	bool ok = true;
+	if (rim != rim2) 
+		//если есть разночтения типа IXL, связанные с разным порядком просмотра записи, то такого числа у римлян не было
+	{
+		//cout << "Дебаг: строки не равны" << endl;
+		ok = !ok;
+	}
+
+	
+	if (ok && ((num_of_symbols(rim, 'A') > 1) || (num_of_symbols(rim, 'B') > 1) || (num_of_symbols(rim, 'E') > 1) || 
+		(num_of_symbols(rim, 'F') > 1) || (num_of_symbols(rim, 'G') > 1) || (num_of_symbols(rim, 'H') > 1)))
+		//если есть 2 одинаковых "составных" символа
+	{
+		//cout << "Дебаг: есть два однаковых составных символа" << endl;
+		ok = !ok;
+	}
+
+	if (ok && ((num_of_symbols(rim, 'A') + num_of_symbols(rim, 'B')) > 1 || (num_of_symbols(rim, 'E') +
+		num_of_symbols(rim, 'F')) > 1 || (num_of_symbols(rim, 'G') + num_of_symbols(rim, 'H')) > 1))
+		//если одновременно есть оба "составных" символа, отвечающих за один и тот же разряд
+	{
+		//cout << "Дебаг: есть два составных символа отвечающих за 1 разряд" << endl;
+		ok = !ok;
+	}
+
+	if  (ok && //проверка на разночтения в записи типа IVI
+		 (
+			 (rim.find("IA") != string::npos) || //IIV
+			 (rim.find("AI") != string::npos) || //IVI
+			 (rim.find("IB") != string::npos) || //IIX
+			 (rim.find("BI") != string::npos) || //IXI
+			 (rim.find("XE") != string::npos) || //XXL
+			 (rim.find("EX") != string::npos) || //XLX
+			 (rim.find("XF") != string::npos) || //XXC
+			 (rim.find("FX") != string::npos) || //XCX
+			 (rim.find("CG") != string::npos) || //CCD
+			 (rim.find("GC") != string::npos) || //CDC
+			 (rim.find("CH") != string::npos) || //CCM
+			 (rim.find("HC") != string::npos) || //CMC
+			 (rim.find("VV") != string::npos) || //VV
+			 (rim.find("LL") != string::npos) || //LL
+			 (rim.find("DD") != string::npos) //DD
+		 )
+		)
+	{
+		//cout << "Дебаг: есть запрещенные комбинации" << endl;
+		ok = !ok;
+	}
+
+	if (ok) //проверка на 4 и более одинаковых символа подряд
+	{
+		int count = 1;
+		char last = ' ';
+		for (int i = 0; i < rim.size(); i++)
+		{
+			if (rim[i] == last)
+			{
+				count++;
+			}
+			else
+			{
+				count = 1;
+			}
+			if (count > 3)
+			{
+				ok = !ok;
+				break;
+			}
+			last = rim[i];
+		}
+	}
+
+	if (ok) //если такое число все-таки могло быть записано римлянами, то переводим его
+	{
+		for (int i = 0; i < rim.size(); i++)
+		{
+			for (int j = 0; j < 13; j++)
+			{
+				if (rim[i] == poss[j])
+				{
+					out += equals[j];
+				}
+			}
+		}
+		cout << "Число в арабской системе - " << out << endl;
+	}
+	else //если нет, то оповещаем пользователя об этом
+		cout << "Введенное число не существует в римской системе" << endl;
+	
 }
 
 const int s0 = 1;
