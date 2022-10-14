@@ -2100,5 +2100,80 @@ void f5_6()
 void f5_7()
 { //номер зачетки, фио, список из 5 предметов с оценками.
 	//Подсчитать среднюю успеваемость группы, вывести список всех студентов, у которых успеваемость выше средней
-
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-7" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Файлы" << endl;
+	SetColor(0, 15);
+	fstream inf("files/file5-7.txt", ios::in);
+	if (inf)
+	{
+		string temp = "";
+		bool ok = true;
+		float average = 0;
+		int count = 0;
+		while (!inf.eof())
+		{
+			temp = "";
+			getline(inf, temp);
+			if (!inf.eof())
+			{
+				size_t spaces[] = { 0, 0, 0, 0, 0, 0 };
+				int index = 0;
+				for (int i = 0; i < 6; i++)
+				{
+					spaces[i] = temp.find(' ', index);
+					if (spaces[i] == string::npos)
+					{
+						ok = false;
+						break;
+					}
+					index = spaces[i] + 1;
+				}
+				if (!ok)
+				{
+					cout << "Файл не отформатирован по следующей схеме:\n\
+номер зачетки - фамилия студента - оценка 1, 2, 3, 4, 5" << endl;
+					break;
+				}
+				count += 5;
+				average += (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5);
+			}
+		}
+		if (ok)
+		{
+			average /= count;
+			cout << "Средняя успеваемость = " << average << endl;
+			cout << "Студенты, имеющие успеваемость выше средней: " << endl;
+			inf.seekg(0);
+			float average1;
+			while (!inf.eof())
+			{
+				temp = "";
+				getline(inf, temp);
+				if (!inf.eof())
+				{
+					size_t spaces[] = { 0, 0, 0, 0, 0, 0 };
+					int index = 0;
+					for (int i = 0; i < 6; i++)
+					{
+						spaces[i] = temp.find(' ', index);
+						index = spaces[i] + 1;
+					}
+					average1 = (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5) / 5.0f;
+					if (average1 > average)
+					{
+						cout << temp << endl;
+					}
+				}
+			}
+		}
+		
+	}
+	else
+	{
+		cout << "Исходный файл files/file5-7.txt не найден" << endl;
+	}
 }
