@@ -1269,15 +1269,19 @@ void f4_4()
 	SetColor(0, 15);
 	for (int i = 0; i < 13; i++)
 	{
-		for (int j = 0; j < 20; j++)
+		for (int j = 0; j < 30; j++)
 		{
 			if ((i < 6) && (j < 8))
 			{
+				SetColor(9, 15);
 				cout << "*";
+				SetColor(0, 15);
 			}
 			else
 			{
+				SetColor(12, 15);
 				cout << "_";
+				SetColor(0, 15);
 			}
 		}
 		cout << endl;
