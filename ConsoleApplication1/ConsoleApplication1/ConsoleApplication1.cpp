@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <cmath>
 #include <fstream>
+#include <ctime>
 
 #include "consolecolors.h"
 
@@ -15,17 +16,19 @@ using namespace std;
 const double pi = 3.14159;
 const double e = 2.71828;
 
-string dz_list_names[2][24] = {
+string dz_list_names[2][31] = {
 	{"1-1", "1-2", "1-3", "1-4", "1-5",
 	"2-1", "2-2", "2-3", "2-4", "2-5",
 	"3-1", "3-2", "3-3", "3-4", "3-5",
 	"4-1", "4-2", "4-3", "4-4", "4-5",
-	"4-6", "4-7", "4-8", "4-9"},
+	"4-6", "4-7", "4-8", "4-9",
+	"5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7"},
 	{"Имя", "Калькулятор", "Уравнение: bx + c = 0", "Уравнение: ax^2 + bx + c = 0", "Лампочка и шторы",
 	"Конус", "Разветвление", "Функция z = ln (b - y) * sqrt (b - x)", "Порядок", "Табуляция функции y = (x^2 - 2x + 2) / (x - 1)",
 	"Займ", "Процент займа", "Файлы", "Фильтр", "Сортировка",
 	"Файл с числами", "Знак числа", "Площадь", "Флаг США", "Синусоида",
-	"Римские цифры", "\"Случайные\" числа", "Про продавцов", "Системы счисления"}
+	"Римские цифры", "\"Случайные\" числа", "Про продавцов", "Системы счисления",
+	"Алгоритм Евклида", "Решето Эратосфена", "Обработка текстовых файлов 1", "Обработка текстовых файлов 2", "Ряды 1", "Ряды 2", "Файлы"}
 };
 
 int findplace(string cond, char a)
@@ -340,6 +343,13 @@ void f4_6();
 void f4_7();
 void f4_8();
 void f4_9();
+void f5_1();
+void f5_2();
+void f5_3();
+void f5_4();
+void f5_5();
+void f5_6();
+void f5_7();
 
 void main_menu()
 {
@@ -347,10 +357,10 @@ void main_menu()
 	setlocale(LC_ALL, "Russian");
 	string input;
 	int widths[5] = { 5, 50, -1, -1, -1 };
-	table::Table dz_list(2, 25, widths, "Список заданий:", 14);
+	table::Table dz_list(2, 32, widths, "Список заданий:", 14);
 	dz_list.set_data(0, 0, "Номер", 0, 13);
 	dz_list.set_data(0, 1, "Название задания", 0, 13);
-	for (int i = 1; i < 25; i++)
+	for (int i = 1; i < 32; i++)
 	{
 		dz_list.set_data(i, 0, dz_list_names[0][i - 1], 0, 13);
 		dz_list.set_data(i, 1, dz_list_names[1][i - 1], 0, 15);
@@ -475,6 +485,34 @@ void main_menu()
 		{
 			f4_9();
 		}
+		else if (input == "5-1")
+		{
+			f5_1();
+		}
+		else if (input == "5-2")
+		{
+			f5_2();
+		}
+		else if (input == "5-3")
+		{
+			f5_3();
+		}
+		else if (input == "5-4")
+		{
+			f5_4();
+		}
+		else if (input == "5-5")
+		{
+			f5_5();
+		}
+		else if (input == "5-6")
+		{
+			f5_6();
+		}
+		else if (input == "5-7")
+		{
+			f5_7();
+		}
 		else if (input == "list")
 		{
 			dz_list.show();
@@ -487,6 +525,7 @@ void main_menu()
 }
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
 	main_menu();
 	return 0;
 }
@@ -1412,7 +1451,7 @@ void f4_6()
 	};
 	int out = 0;
 	while (rim.find_first_not_of("IVXLCDM") != string::npos) //ввод числа. При этом исключаются 
-		                                                     //все не относящиеся к римским цифрам символы
+															 //все не относящиеся к римским цифрам символы
 	{
 		cout << "Введите положительное число в римской системе счисления \nВозможные символы: IVXLCDM -> ";
 		cin >> rim;
@@ -1435,19 +1474,36 @@ void f4_6()
 	replaceall(rim2, "LX", "E");
 	replaceall(rim2, "XI", "B");
 	replaceall(rim2, "VI", "A");
-	
-	rim2 = reverse(rim2); 
+
+	rim2 = reverse(rim2);
 
 	bool ok = true;
-	if (rim != rim2) 
+	if (rim != rim2)
 		//если есть разночтения типа IXL, связанные с разным порядком просмотра записи, то такого числа у римлян не было
 	{
 		//cout << "Дебаг: строки не равны" << endl;
 		ok = !ok;
 	}
 
-	
-	if (ok && ((num_of_symbols(rim, 'A') > 1) || (num_of_symbols(rim, 'B') > 1) || (num_of_symbols(rim, 'E') > 1) || 
+	string rim3 = rim;
+
+	for (int i = 0; i < rim3.size(); i++)
+	{
+		for (int j = 0; j < rim3.size(); j++)
+		{
+			if (findplace("IAVBXELFCGDHM", rim3[i]) > findplace("IAVBXELFCGDHM", rim3[j]))
+			{
+				swap(rim3[i], rim3[j]);
+			}
+		}
+	}
+
+	if (ok && (rim3 != rim))
+	{
+		ok = !ok;
+	}
+
+	if (ok && ((num_of_symbols(rim, 'A') > 1) || (num_of_symbols(rim, 'B') > 1) || (num_of_symbols(rim, 'E') > 1) ||
 		(num_of_symbols(rim, 'F') > 1) || (num_of_symbols(rim, 'G') > 1) || (num_of_symbols(rim, 'H') > 1)))
 		//если есть 2 одинаковых "составных" символа
 	{
@@ -1463,24 +1519,24 @@ void f4_6()
 		ok = !ok;
 	}
 
-	if  (ok && //проверка на разночтения в записи типа IVI
-		 (
-			 (rim.find("IA") != string::npos) || //IIV
-			 (rim.find("AI") != string::npos) || //IVI
-			 (rim.find("IB") != string::npos) || //IIX
-			 (rim.find("BI") != string::npos) || //IXI
-			 (rim.find("XE") != string::npos) || //XXL
-			 (rim.find("EX") != string::npos) || //XLX
-			 (rim.find("XF") != string::npos) || //XXC
-			 (rim.find("FX") != string::npos) || //XCX
-			 (rim.find("CG") != string::npos) || //CCD
-			 (rim.find("GC") != string::npos) || //CDC
-			 (rim.find("CH") != string::npos) || //CCM
-			 (rim.find("HC") != string::npos) || //CMC
-			 (rim.find("VV") != string::npos) || //VV
-			 (rim.find("LL") != string::npos) || //LL
-			 (rim.find("DD") != string::npos) //DD
-		 )
+	if (ok && //проверка на разночтения в записи типа IVI
+		(
+		(rim.find("IA") != string::npos) || //IIV
+			(rim.find("AI") != string::npos) || //IVI
+			(rim.find("IB") != string::npos) || //IIX
+			(rim.find("BI") != string::npos) || //IXI
+			(rim.find("XE") != string::npos) || //XXL
+			(rim.find("EX") != string::npos) || //XLX
+			(rim.find("XF") != string::npos) || //XXC
+			(rim.find("FX") != string::npos) || //XCX
+			(rim.find("CG") != string::npos) || //CCD
+			(rim.find("GC") != string::npos) || //CDC
+			(rim.find("CH") != string::npos) || //CCM
+			(rim.find("HC") != string::npos) || //CMC
+			(rim.find("VV") != string::npos) || //VV
+			(rim.find("LL") != string::npos) || //LL
+			(rim.find("DD") != string::npos) //DD
+			)
 		)
 	{
 		//cout << "Дебаг: есть запрещенные комбинации" << endl;
@@ -1526,7 +1582,7 @@ void f4_6()
 	}
 	else //если нет, то оповещаем пользователя об этом
 		cout << "Введенное число не существует в римской системе" << endl;
-	
+
 }
 
 const int s0 = 1;
@@ -1608,10 +1664,10 @@ void f4_8()
 	for (int i = 1; i < 4; i++)
 	{
 		TableA.set_data(i, 0, to_string(i), 0, 13);
-		TableA.set_data(i, 1, to_string(A[i - 1][0]), 0, 15);
-		TableA.set_data(i, 2, to_string(A[i - 1][1]), 0, 15);
-		TableA.set_data(i, 3, to_string(A[i - 1][2]), 0, 15);
-		TableA.set_data(i, 4, to_string(A[i - 1][3]), 0, 15);
+		TableA.set_data(i, 1, to_string(A[i - 1][0]).erase(to_string(A[i-1][0]).find(",") + 3), 0, 15);
+		TableA.set_data(i, 2, to_string(A[i - 1][1]).erase(to_string(A[i - 1][1]).find(",") + 3), 0, 15);
+		TableA.set_data(i, 3, to_string(A[i - 1][2]).erase(to_string(A[i - 1][2]).find(",") + 3), 0, 15);
+		TableA.set_data(i, 4, to_string(A[i - 1][3]).erase(to_string(A[i - 1][3]).find(",") + 3), 0, 15);
 	}
 	TableA.show();
 	cout << endl;
@@ -1624,8 +1680,8 @@ void f4_8()
 	for (int i = 1; i < 5; i++)
 	{
 		TableB.set_data(i, 0, to_string(i), 0, 13);
-		TableB.set_data(i, 1, to_string(B[i - 1][0]), 0, 15);
-		TableB.set_data(i, 2, to_string(B[i - 1][1]), 0, 15);
+		TableB.set_data(i, 1, to_string(B[i - 1][0]).erase(to_string(B[i - 1][0]).find(",") + 3), 0, 15);
+		TableB.set_data(i, 2, to_string(B[i - 1][1]).erase(to_string(B[i - 1][1]).find(",") + 3), 0, 15);
 	}
 	TableB.show();
 	cout << endl;
@@ -1648,8 +1704,8 @@ void f4_8()
 	for (int i = 1; i < 5; i++)
 	{
 		TableC.set_data(i, 0, to_string(i), 0, 13);
-		TableC.set_data(i, 1, to_string(C[i - 1][0]), 0, 15);
-		TableC.set_data(i, 2, to_string(C[i - 1][1]), 0, 15);
+		TableC.set_data(i, 1, to_string(C[i - 1][0]).erase(to_string(C[i - 1][0]).find(",") + 3), 0, 15);
+		TableC.set_data(i, 2, to_string(C[i - 1][1]).erase(to_string(C[i - 1][1]).find(",") + 3), 0, 15);
 	}
 	TableC.show();
 	cout << endl;
@@ -1757,4 +1813,292 @@ void f4_9()
 			cout << num_out[i];
 		cout << endl;
 	}
+}
+
+void f5_1()
+{
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-1" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Алгоритм Евклида" << endl;
+	SetColor(0, 15);
+	int a = 0, b = 0;
+	while (a == 0)
+	{
+		getvar(a, "Введите положительное целое число а", true);
+		if (a == 0)
+		{
+			cout << "Неверный ввод" << endl;
+		}
+	}
+	while (b == 0)
+	{
+		getvar(b, "Введите положительное целое число b", true);
+		if (b == 0)
+		{
+			cout << "Неверный ввод" << endl;
+		}
+	}
+
+	int nod = 1;
+	for (int i = 1; i <= min(a, b); i++)
+	{
+		if ((a % i == 0) && (b % i == 0))
+			nod = i;
+	}
+	cout << "Наибольший общий делитель этих чисел = " << nod << endl;
+}
+
+void f5_2()
+{
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-2" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Решето Эратосфена" << endl;
+	SetColor(0, 15);
+
+	int a = 0;
+	while (a < 2)
+	{
+		getvar(a, "Введите целое число, большее или равное 2", true);
+		if (a < 2)
+			cout << "Неверный ввод" << endl;
+	}
+
+	cout << "Простые числа от 2 до " << a << ": " << endl << setw(7) << 2;
+	int k = 0;
+	for (int i = 3; i <= a; i++)
+	{
+		bool simple = true;
+		for (int j = 2; j < (i / 2 + 1); j++)
+		{
+			if (i % j == 0)
+			{
+				simple = false;
+			}
+		}
+		if (simple)
+		{
+			cout << ", ";
+			k++;
+			if (k == 10)
+			{
+				cout << endl;
+				k = 0;
+			}
+			cout << setw(7) << i;
+		}
+			
+	}
+	cout << endl;
+}
+
+void f5_3()
+{ //посимвольная сортировка
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-3" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Обработка текстовых файлов 1" << endl;
+	SetColor(0, 15);
+	SetColor(0, 11);
+	cout << "Что происходит: посимвольная сортировка" << endl;
+	SetColor(0, 15);
+	fstream inf("files/file5-3.txt", ios::in);
+	if (inf)
+	{
+		string a;
+		inf >> a;
+		cout << "Исходная строка: " << a << endl;
+		for (int i = 0; i < a.size(); i++)
+		{
+			for (int j = 0; j < a.size(); j++)
+			{
+				if (a[i] < a[j])
+					swap(a[i], a[j]);
+			}
+		}
+		cout << "Отсортированная строка: " << a << endl;
+	}
+	else
+	{
+		cout << "Невозможно открыть исходный файл files/file5-3.txt" << endl;
+	}
+	inf.close();
+}
+
+void f5_4()
+{ //чтение текста из текстового файла
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-4" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Обработка текстовых файлов 2" << endl;
+	SetColor(0, 15);
+	SetColor(0, 11);
+	cout << "Что происходит: чтение текста из файла" << endl;
+	SetColor(0, 15);
+	fstream inf("files/file5-4.txt", ios::in);
+	if (inf)
+	{
+		string i;
+		while (!inf.eof())
+		{
+			getline(inf, i);
+			cout << i << endl;
+		}
+	}
+	else
+	{
+		cout << "Невозможно открыть исходный файл files/file5-4.txt" << endl;
+	}
+	inf.close();
+}
+
+void f5_5()
+{ //в строке символов записать наоборот пятое слово, если оно есть
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-5" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Ряды 1" << endl;
+	SetColor(0, 15);
+	SetColor(0, 11);
+	cout << "Что происходит: в строке символов ищется пятое слово и, если оно есть, выводится в обратном порядке на экран" << endl;
+	SetColor(0, 15);
+	char ch = ' ';
+	bool ok = true;
+	string relativepath = "a";
+	string s;
+	cout << "Как вы хотите задать строку? (f - через файл, любой другой символ - вручную)\n";
+	ch = _getch();
+	getline(cin, s);
+	if (ch == 'f')
+	{
+		cout << "Задайте относительный путь (от файла программы до исходного файла):" << endl;
+		cin >> relativepath;
+		fstream inf(relativepath, ios::in);
+		if (inf)
+		{
+			getline(inf, s);
+		}
+		else
+		{
+			cout << "По данному пути файл не найден" << endl;
+			ok = false;
+		}
+		inf.close();
+	}
+	else {
+		cout << "Введите строку: " << endl;
+		getline(cin, s);
+	}
+
+	if (ok)
+	{
+		cout << "Исходная строка: " << s << endl;
+		size_t spaces[5] = {0, 0, 0, 0, 0};
+		int index = 0;
+		for (int i = 0; i < 5; i++)
+		{
+			spaces[i] = s.find(' ', index);
+			if (spaces[i] == string::npos)
+				break;
+			index = spaces[i] + 1;
+		}
+		string s1 = "";
+		if (spaces[3] && spaces[4])
+		{
+			for (int i = spaces[3] + 1; i < spaces[4]; i++)
+			{
+				s1 += s[i];
+			}
+			cout << "Пятое слово в строке наоборот: " << reverse(s1) << endl;
+		}
+		else
+		{
+			cout << "Пятое слово в строке не найдено" << endl;
+		}
+	}
+}
+
+void f5_6()
+{ //сколько раз введенное с клавиатуры число встречается в массиве и на каких позициях
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 5-6" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Ряды 2" << endl;
+	SetColor(0, 15);
+	SetColor(0, 11);
+	cout << "Что происходит: в случайно сгенерированном массиве ищется введенное с клавиатуры число и, если оно есть,\n на экран выводятся все позиции, на которых это число находится" << endl;
+	SetColor(0, 15);
+	int a; int b;
+	int n = 0;
+	SetColor(0, 14);
+	cout << "Часть 1: настройка массива" << endl;
+	SetColor(0, 15);
+
+	getvar(a, "Введите нижнюю границу диапазона", false);
+	b = a - 1;
+	while (b < a)
+	{
+		getvar(b, "Введите верхнюю границу диапазона", false);
+		if (b < a)
+			cout << "Неверный ввод" << endl;
+	}
+
+	while (n == 0)
+	{
+		getvar(n, "Введите количество чисел в массиве > 0", true);
+		if (n == 0)
+		{
+			cout << "Неверный ввод" << endl;
+		}
+	}
+
+	int* N = new int[n];
+	for (int i = 0; i < n; i++)
+	{
+		N[i] = rand() % (abs(a - b) + 1) + a;
+	}
+
+	SetColor(0, 14);
+	cout << "Часть 2: поиск числа" << endl;
+	SetColor(0, 15);
+	int search = 0;
+	getvar(search, "Введите искомое число", false);
+
+	int count = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (N[i] == search)
+		{
+			count++;
+			cout << "Число найдено на позиции " << i+1 << endl;
+		}
+	}
+	if (count)
+	{
+		cout << "Всего найдено чисел " << search << ": " << count << endl;
+	}
+	else
+	{
+		cout << "Число " << search << " не найдено ни разу" << endl;
+	}
+	delete[] N;
+}
+
+void f5_7()
+{ //номер зачетки, фио, список из 5 предметов с оценками.
+	//Подсчитать среднюю успеваемость группы, вывести список всех студентов, у которых успеваемость выше средней
+
 }
