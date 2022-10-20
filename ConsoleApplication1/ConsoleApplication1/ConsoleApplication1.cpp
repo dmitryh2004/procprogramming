@@ -16,20 +16,30 @@ using namespace std;
 const double pi = 3.14159;
 const double e = 2.71828;
 
-string dz_list_names[2][31] = {
+string dz_list_names[2][32] = {
 	{"1-1", "1-2", "1-3", "1-4", "1-5",
 	"2-1", "2-2", "2-3", "2-4", "2-5",
 	"3-1", "3-2", "3-3", "3-4", "3-5",
 	"4-1", "4-2", "4-3", "4-4", "4-5",
 	"4-6", "4-7", "4-8", "4-9",
-	"5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7"},
+	"5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7",
+	"6-1"},
 	{"Имя", "Калькулятор", "Уравнение: bx + c = 0", "Уравнение: ax^2 + bx + c = 0", "Лампочка и шторы",
 	"Конус", "Разветвление", "Функция z = ln (b - y) * sqrt (b - x)", "Порядок", "Табуляция функции y = (x^2 - 2x + 2) / (x - 1)",
 	"Займ", "Процент займа", "Файлы", "Фильтр", "Сортировка",
 	"Файл с числами", "Знак числа", "Площадь", "Флаг США", "Синусоида",
 	"Римские цифры", "\"Случайные\" числа", "Про продавцов", "Системы счисления",
-	"Алгоритм Евклида", "Решето Эратосфена", "Обработка текстовых файлов 1", "Обработка текстовых файлов 2", "Ряды 1", "Ряды 2", "Файлы"}
+	"Алгоритм Евклида", "Решето Эратосфена", "Обработка текстовых файлов 1", "Обработка текстовых файлов 2", "Ряды 1", "Ряды 2", "Файлы",
+	"Шарики"}
 };
+
+double fact(int n)
+{
+	if (n == 0)
+		return 1.0;
+	else
+		return n * fact(n - 1);
+}
 
 int findplace(string cond, char a)
 {
@@ -350,6 +360,7 @@ void f5_4();
 void f5_5();
 void f5_6();
 void f5_7();
+void f6_1();
 
 void main_menu()
 {
@@ -357,10 +368,10 @@ void main_menu()
 	setlocale(LC_ALL, "Russian");
 	string input;
 	int widths[5] = { 5, 50, -1, -1, -1 };
-	table::Table dz_list(2, 32, widths, "Список заданий:", 14);
+	table::Table dz_list(2, 33, widths, "Список заданий:", 14);
 	dz_list.set_data(0, 0, "Номер", 0, 13);
 	dz_list.set_data(0, 1, "Название задания", 0, 13);
-	for (int i = 1; i < 32; i++)
+	for (int i = 1; i < 33; i++)
 	{
 		dz_list.set_data(i, 0, dz_list_names[0][i - 1], 0, 13);
 		dz_list.set_data(i, 1, dz_list_names[1][i - 1], 0, 15);
@@ -512,6 +523,10 @@ void main_menu()
 		else if (input == "5-7")
 		{
 			f5_7();
+		}
+		else if (input == "6-1")
+		{
+			f6_1();
 		}
 		else if (input == "list")
 		{
@@ -1668,7 +1683,7 @@ void f4_8()
 	for (int i = 1; i < 4; i++)
 	{
 		TableA.set_data(i, 0, to_string(i), 0, 13);
-		TableA.set_data(i, 1, to_string(A[i - 1][0]).erase(to_string(A[i-1][0]).find(",") + 3), 0, 15);
+		TableA.set_data(i, 1, to_string(A[i - 1][0]).erase(to_string(A[i - 1][0]).find(",") + 3), 0, 15);
 		TableA.set_data(i, 2, to_string(A[i - 1][1]).erase(to_string(A[i - 1][1]).find(",") + 3), 0, 15);
 		TableA.set_data(i, 3, to_string(A[i - 1][2]).erase(to_string(A[i - 1][2]).find(",") + 3), 0, 15);
 		TableA.set_data(i, 4, to_string(A[i - 1][3]).erase(to_string(A[i - 1][3]).find(",") + 3), 0, 15);
@@ -1763,7 +1778,7 @@ void f4_9()
 	int max_CS = 36; //max counting system - максимальная система счисления
 	int min_CS = 2; //аналогично max_CS
 	int CS_in = 0, CS_out = 0; //входная СС и выходная СС
-	string num_in = "a", num_out; //входное и выходное число
+	string num_in = "a", num_out = "", num_out_float = ""; //входное и выходное число
 	while ((CS_in < 2) || (CS_in > 36))
 	{
 		getvar(CS_in, "Введите исходную СС (2-36)", true);
@@ -1778,18 +1793,42 @@ void f4_9()
 			cout << "Неверный ввод" << endl;
 	}
 
-	while ((num_in.find_first_not_of(alphabet) != string::npos) || (num_in.size() > 20))
+	while ((num_in.find_first_not_of(alphabet + ",-") != string::npos) || (num_in.size() > 25))
 	{
-		cout << "Введите число в " << CS_in << "-й СС (максимум 20 знаков): ";
+		cout << "Введите число в " << CS_in << "-й СС (максимум 25 знаков): ";
 		cin >> num_in;
-		if ((num_in.find_first_not_of(alphabet) != string::npos) || (num_in.size() > 20))
+		if ((num_in.find_first_not_of(alphabet + ",-") != string::npos) || (num_in.size() > 25))
 			cout << "Неверный ввод" << endl;
 	}
 
 	bool ok = true;
+	bool is_float = false;
+	bool is_negative = false;
 	//проверка на существование заданного числа в CS_in-й СС
 	for (int i = 0; i < num_in.size(); i++)
 	{
+		if (num_in[i] == '-')
+		{
+			if (is_negative)
+			{
+				cout << "Ошибка в записи числа: обнаружен лишний минус" << endl;
+				ok = false;
+				break;
+			}
+			is_negative = true;
+			continue;
+		}
+		if (num_in[i] == ',')
+		{
+			if (is_float)
+			{
+				cout << "Ошибка в записи числа: обнаружена лишняя запятая" << endl;
+				ok = false;
+				break;
+			}
+			is_float = true;
+			continue;
+		}
 		if (findplace(alphabet, num_in[i]) > findplace(alphabet, alphabet[CS_in - 1]))
 		{
 			cout << "Число " << num_in << " не существует в " << CS_in << "-й СС" << endl;
@@ -1799,22 +1838,127 @@ void f4_9()
 	}
 
 	int64_t decimal = 0;
+	double float_decimal = 0.0f;
 	int power = 0;
 	if (ok)
 	{
-		for (int i = num_in.size() - 1; i >= 0; i--)
+		if (is_float)
 		{
-			decimal += findplace(alphabet, num_in[i]) * pow(CS_in, power);
-			power++;
+			//целая часть
+			for (int i = num_in.find(',') - 1; i >= 0; i--) //переводим целую часть в десятичную систему
+			{
+				if (num_in[i] == '-')
+				{
+					continue;
+				}
+				decimal += findplace(alphabet, num_in[i]) * pow(CS_in, power);
+				power++;
+			}
+			while (decimal > 0) //а потом в выходную систему
+			{
+				num_out += alphabet[decimal % CS_out];
+				decimal /= CS_out;
+			}
+			num_out = reverse(num_out);
+			//дробная часть
+			power = 0;
+			for (int i = num_in.find(',') + 1; i < num_in.size(); i++) //переводим дробную часть в десятичную систему
+			{
+				power--;
+				float_decimal += findplace(alphabet, num_in[i]) * pow(CS_in, power);
+			}
+			//определяем количество разрядов после запятой, достаточных для перевода без потери точности
+			double L = 0;
+			L = -log(pow(10, power) / 2) / log(CS_out);
+			int L_int = int(L) + 1;
+			bool need_round = true;
+			for (int i = 1; i <= L_int; i++) //переводим дробную часть в систему CS_out
+			{
+				num_out_float += alphabet[int(float_decimal * CS_out)];
+				float_decimal *= CS_out;
+				float_decimal -= int(float_decimal);
+				if (float_decimal == 0) //если число переведено, то заканчиваем перевод, округление не требуется
+				{
+					need_round = false;
+					break;
+				}	
+			}
+			if (need_round)
+			{
+				int last_index = findplace(alphabet, num_out_float[num_out_float.size() - 1]); //смотрим последнюю цифру числа
+				if (last_index / double(CS_out) >= 0.5) //если ее значение больше половины значения самой большой цифры в выходной СС
+				{
+					bool done = false;
+					int count = -1;
+					while (!done)
+					{
+						count++; //увеличиваем номер разряда
+						if (count == num_out_float.size()) //если мы прошли всю дробную часть, то переходим к целой части
+						{
+							int count_int = -1;
+							while (1)
+							{
+								count_int++; //увеличиваем номер разряда
+								if (count_int == num_out.size()) //если мы прошли и всю целую часть
+								{
+									num_out.insert(0, 1, '1'); //то добавляем единицу в начало
+									done = true; //выходим из цикла округления
+									break;
+								}
+								num_out[num_out.size() - (count_int + 1)] = //увеличиваем очередной разряд на 1
+									alphabet[findplace(alphabet, num_out[num_out.size() - (count_int + 1)]) + 1];
+								if (findplace(alphabet, num_out[num_out.size() - (count_int + 1)]) + 1 <= CS_out) //если он в рамках
+									//выходной системы, то прекращаем
+									break;
+								else {
+									num_out[num_out.size() - (count_int + 1)] = '0'; //разряд обнулился, возникла единица переноса
+								}
+							}
+							is_float = false;
+							done = true;
+							if (done)
+								break;
+						}
+						num_out_float[num_out_float.size() - (count + 1)] = //увеличиваем очередной разряд на 1
+							alphabet[findplace(alphabet, num_out_float[num_out_float.size() - (count + 1)]) + 1];
+						if (findplace(alphabet, num_out_float[num_out_float.size() - (count + 1)]) + 1 <= CS_out) //если он в рамках
+							//выходной системы, то прекращаем
+							break;
+						else {
+							num_out_float[num_out_float.size() - (count + 1)] = '0'; //разряд обнулился, возникла единица переноса
+						}
+					}
+					num_out_float.erase(num_out_float.size() - count); //удаляем незначащие нули, появившиеся в процессе округления
+				}
+			}
 		}
-		while (decimal > 0)
+		else
 		{
-			num_out += alphabet[decimal % CS_out];
-			decimal /= CS_out;
+			for (int i = num_in.size() - 1; i >= 0; i--) //переводим число в десятичную систему
+			{
+				if (num_in[i] == '-')
+				{
+					continue;
+				}
+				decimal += findplace(alphabet, num_in[i]) * pow(CS_in, power);
+				power++;
+			}
+			while (decimal > 0) //а потом в выходную систему
+			{
+				num_out += alphabet[decimal % CS_out];
+				decimal /= CS_out;
+			}
+			num_out = reverse(num_out);
 		}
 		cout << "Число " << num_in << " (" << CS_in << "сс) в " << CS_out << "-й СС: ";
-		for (int i = num_out.size() - 1; i >= 0; i--)
-			cout << num_out[i];
+		if (is_negative)
+			cout << "-";
+		if (num_out == "")
+			cout << 0;
+		else
+			cout << num_out;
+		if (is_float)
+			cout << "," << num_out_float;
 		cout << endl;
 	}
 }
@@ -1873,8 +2017,8 @@ void f5_2()
 			cout << "Неверный ввод" << endl;
 	}
 
-	cout << "Простые числа от 2 до " << a << ": " << endl << setw(7) << 2;
-	int k = 0;
+	cout << "Простые числа от 2 до " << a << ": " << endl << 2;
+	int k = 0, n = 1;
 	for (int i = 3; i <= a; i++)
 	{
 		bool simple = true;
@@ -1887,18 +2031,19 @@ void f5_2()
 		}
 		if (simple)
 		{
-			cout << ", ";
+			cout << ",\t";
 			k++;
+			n++;
 			if (k == 10)
 			{
 				cout << endl;
 				k = 0;
 			}
-			cout << setw(7) << i;
+			cout << i;
 		}
-			
+
 	}
-	cout << endl;
+	cout << endl << "Всего простых чисел: " << n << endl;
 }
 
 void f5_3()
@@ -2008,7 +2153,7 @@ void f5_5()
 	if (ok)
 	{
 		cout << "Исходная строка: " << s << endl;
-		size_t spaces[5] = {0, 0, 0, 0, 0};
+		size_t spaces[5] = { 0, 0, 0, 0, 0 };
 		int index = 0;
 		for (int i = 0; i < 5; i++)
 		{
@@ -2020,6 +2165,7 @@ void f5_5()
 		string s1 = "";
 		if (spaces[3] && spaces[4])
 		{
+			spaces[4] = min(spaces[4], s.size());
 			for (int i = spaces[3] + 1; i < spaces[4]; i++)
 			{
 				s1 += s[i];
@@ -2060,10 +2206,10 @@ void f5_6()
 			cout << "Неверный ввод" << endl;
 	}
 
-	while (n == 0)
+	while ((n <= 0) || (n >= 1000000))
 	{
-		getvar(n, "Введите количество чисел в массиве > 0", true);
-		if (n == 0)
+		getvar(n, "Введите количество чисел в массиве (в диапазоне 0 - 1 000 000)", true);
+		if ((n <= 0) || (n >= 1000000))
 		{
 			cout << "Неверный ввод" << endl;
 		}
@@ -2087,7 +2233,7 @@ void f5_6()
 		if (N[i] == search)
 		{
 			count++;
-			cout << "Число найдено на позиции " << i+1 << endl;
+			cout << "Число найдено на позиции " << i + 1 << endl;
 		}
 	}
 	if (count)
@@ -2174,10 +2320,92 @@ void f5_7()
 				}
 			}
 		}
-		
+
 	}
 	else
 	{
 		cout << "Исходный файл files/file5-7.txt не найден" << endl;
+	}
+}
+
+void f6_1()
+{
+	system("cls");
+	SetColor(0, 14);
+	cout << "===============================" << endl;
+	cout << "          Задание 6-1" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Шарики" << endl;
+	SetColor(0, 15);
+	int n = 0;
+	while ((n <= 0))
+	{
+		getvar(n, "Введите количество шариков (рекомендуется не более 170)", true);
+		if ((n <= 0))
+		{
+			cout << "Неверный ввод" << endl;
+		}
+	}
+	if (n > 170)
+	{
+		cout << "При вычислениях получен слишком большой результат (больше, чем 10^307)" << endl;
+	}
+	else
+	{
+		double Q = 0; //число ситуаций, при которых номер ни одного шарика не совпадет с порядком вынимания
+
+		//double выбран, потому что диапазон представления чисел в int64_t от -9223372036854775807 до 9223372036854775807
+		//(от -10^19 до 10^19; даже если будет unsigned, то максимальное число будет около 10^20, которое меньше результата
+		//программы для 22 шариков), а диапазон представления чисел в double - от -10^307 до 10^307
+
+		//Формула для расчета: P = n! - (n! * sum((-1)^k / k!)), где k = 0,1,...,n
+
+		double all = fact(n);
+
+		Q = all;
+
+		double tempQ = 0;
+		for (int k = 0; k <= n; k++)
+		{
+			double temp = pow(-1, k);
+			temp /= fact(k);
+			tempQ += temp;
+		}
+		Q *= tempQ;
+
+		int prec = cout.precision();
+		double P = 0; //число ситуаций, обратных ситуациям Q, т.е. хотя бы у 1 шарика его номер совпал с порядком
+		P = all - Q;
+		SetColor(0, 10);
+		cout << "Количество перестановок, при которых номер хотя бы 1 шарика совпадет с порядком\nвынимания этих шариков:\n";
+		SetColor(0, 15);
+		cout << setprecision(0) << fixed << P;
+		cout.unsetf(ios::fixed);
+		cout << setprecision(prec);
+		SetColor(0, 7);
+		if (P > pow(10, 10))
+			cout << " (примерно " << P << ")";
+		SetColor(0, 15);
+		cout << endl;
+		
+		double p = P / all * 100;
+		SetColor(0, 14);
+		if ((n % 10 == 1) && (n % 100 != 11))
+			cout << "\nВсего перестановок из " << n << " шарика:\n";
+		else
+			cout << "\nВсего перестановок из " << n << " шариков:\n";
+		SetColor(0, 15);
+		cout << setprecision(0) << fixed << all;
+		cout.unsetf(ios::fixed);
+		cout << setprecision(prec);
+		SetColor(0, 7);
+		if (all > pow(10, 10))
+			cout << " (примерно " << all << ")";
+		SetColor(0, 15);
+		cout << endl;
+		SetColor(0, 11);
+		cout << "\nКоличество подходящих перестановок: ";
+		SetColor(0, 15);
+		cout << p << "% от общего количества" << endl;
 	}
 }
