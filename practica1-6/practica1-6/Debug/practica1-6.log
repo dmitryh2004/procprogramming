@@ -1,0 +1,24 @@
+﻿  practica1-6.cpp
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(46,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(57,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(68,15): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(543,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(826,11): warning C4244: инициализация: преобразование "std::streamsize" в "int", возможна потеря данных
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(881,26): warning C4101: p: неиспользованная локальная переменная
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1085,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1087,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1097,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1509,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1511,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1569,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1590,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1808,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1854,66): warning C4244: +=: преобразование "double" в "int64_t", возможна потеря данных
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1865,41): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(1948,66): warning C4244: +=: преобразование "double" в "int64_t", возможна потеря данных
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(2072,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(2074,22): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(2162,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(2180,34): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ivc6-10\source\repos\practica1-6\practica1-6\practica1-6.cpp(2387,12): warning C4244: инициализация: преобразование "std::streamsize" в "int", возможна потеря данных
+  practica1-6.vcxproj -> C:\Users\ivc6-10\source\repos\practica1-6\Debug\practica1-6.exe
