@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 #include <iostream>
@@ -79,24 +79,24 @@ void getvar(double& var, string hintMessage, bool Positive)
 		if (varstring.find_first_not_of(check_cond) != string::npos)
 		{
 			if (Positive)
-				cout << "Íåâåðíûé ââîä: íàéäåí ñèìâîë, îòëè÷íûé îò öèôð èëè çàïÿòîé" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð½Ð°Ð¹Ð´ÐµÐ½ ÑÐ¸Ð¼Ð²Ð¾Ð», Ð¾Ñ‚Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¾Ñ‚ Ñ†Ð¸Ñ„Ñ€ Ð¸Ð»Ð¸ Ð·Ð°Ð¿ÑÑ‚Ð¾Ð¹" << endl;
 			else
-				cout << "Íåâåðíûé ââîä: íàéäåí ñèìâîë, îòëè÷íûé îò öèôð, ìèíóñà èëè çàïÿòîé" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð½Ð°Ð¹Ð´ÐµÐ½ ÑÐ¸Ð¼Ð²Ð¾Ð», Ð¾Ñ‚Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¾Ñ‚ Ñ†Ð¸Ñ„Ñ€, Ð¼Ð¸Ð½ÑƒÑÐ° Ð¸Ð»Ð¸ Ð·Ð°Ð¿ÑÑ‚Ð¾Ð¹" << endl;
 			continue;
 		}
 		if (num_of_symbols(varstring, '-') > 1)
 		{
-			cout << "Íåâåðíûé ââîä: ÷èñëî ìèíóñîâ áîëüøå 1" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ‡Ð¸ÑÐ»Ð¾ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð² Ð±Ð¾Ð»ÑŒÑˆÐµ 1" << endl;
 			continue;
 		}
 		if (num_of_symbols(varstring, ',') > 1)
 		{
-			cout << "Íåâåðíûé ââîä: ÷èñëî çàïÿòûõ áîëüøå 1" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ‡Ð¸ÑÐ»Ð¾ Ð·Ð°Ð¿ÑÑ‚Ñ‹Ñ… Ð±Ð¾Ð»ÑŒÑˆÐµ 1" << endl;
 			continue;
 		}
 		if ((findplace(varstring, ',') < findplace(varstring, '-')) && (num_of_symbols(varstring, ',') > 0))
 		{
-			cout << "Íåâåðíûé ââîä: çàïÿòàÿ ñòîèò ïåðåä ìèíóñîì" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð·Ð°Ð¿ÑÑ‚Ð°Ñ ÑÑ‚Ð¾Ð¸Ñ‚ Ð¿ÐµÑ€ÐµÐ´ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð¼" << endl;
 			continue;
 		}
 		bool ok2 = true;
@@ -104,7 +104,7 @@ void getvar(double& var, string hintMessage, bool Positive)
 		{
 			if ((findplace(varstring, '-') > findplace(varstring, char(i + 48))) && (num_of_symbols(varstring, char(i + 48)) > 0))
 			{
-				cout << "Íåâåðíûé ââîä: öèôðà ñòîèò ïåðåä ìèíóñîì" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ†Ð¸Ñ„Ñ€Ð° ÑÑ‚Ð¾Ð¸Ñ‚ Ð¿ÐµÑ€ÐµÐ´ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð¼" << endl;
 				ok2 = false;
 				break;
 			}
@@ -132,24 +132,24 @@ void getvar(float& var, string hintMessage, bool Positive)
 		if (varstring.find_first_not_of(check_cond) != string::npos)
 		{
 			if (Positive)
-				cout << "Íåâåðíûé ââîä: íàéäåí ñèìâîë, îòëè÷íûé îò öèôð èëè çàïÿòîé" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð½Ð°Ð¹Ð´ÐµÐ½ ÑÐ¸Ð¼Ð²Ð¾Ð», Ð¾Ñ‚Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¾Ñ‚ Ñ†Ð¸Ñ„Ñ€ Ð¸Ð»Ð¸ Ð·Ð°Ð¿ÑÑ‚Ð¾Ð¹" << endl;
 			else
-				cout << "Íåâåðíûé ââîä: íàéäåí ñèìâîë, îòëè÷íûé îò öèôð, ìèíóñà èëè çàïÿòîé" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð½Ð°Ð¹Ð´ÐµÐ½ ÑÐ¸Ð¼Ð²Ð¾Ð», Ð¾Ñ‚Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¾Ñ‚ Ñ†Ð¸Ñ„Ñ€, Ð¼Ð¸Ð½ÑƒÑÐ° Ð¸Ð»Ð¸ Ð·Ð°Ð¿ÑÑ‚Ð¾Ð¹" << endl;
 			continue;
 		}
 		if (num_of_symbols(varstring, '-') > 1)
 		{
-			cout << "Íåâåðíûé ââîä: ÷èñëî ìèíóñîâ áîëüøå 1" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ‡Ð¸ÑÐ»Ð¾ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð² Ð±Ð¾Ð»ÑŒÑˆÐµ 1" << endl;
 			continue;
 		}
 		if (num_of_symbols(varstring, ',') > 1)
 		{
-			cout << "Íåâåðíûé ââîä: ÷èñëî çàïÿòûõ áîëüøå 1" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ‡Ð¸ÑÐ»Ð¾ Ð·Ð°Ð¿ÑÑ‚Ñ‹Ñ… Ð±Ð¾Ð»ÑŒÑˆÐµ 1" << endl;
 			continue;
 		}
 		if ((findplace(varstring, ',') < findplace(varstring, '-')) && (num_of_symbols(varstring, ',') > 0))
 		{
-			cout << "Íåâåðíûé ââîä: çàïÿòàÿ ñòîèò ïåðåä ìèíóñîì" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð·Ð°Ð¿ÑÑ‚Ð°Ñ ÑÑ‚Ð¾Ð¸Ñ‚ Ð¿ÐµÑ€ÐµÐ´ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð¼" << endl;
 			continue;
 		}
 		bool ok2 = true;
@@ -157,7 +157,7 @@ void getvar(float& var, string hintMessage, bool Positive)
 		{
 			if ((findplace(varstring, '-') > findplace(varstring, char(i + 48))) && (num_of_symbols(varstring, char(i + 48)) > 0))
 			{
-				cout << "Íåâåðíûé ââîä: öèôðà ñòîèò ïåðåä ìèíóñîì" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ†Ð¸Ñ„Ñ€Ð° ÑÑ‚Ð¾Ð¸Ñ‚ Ð¿ÐµÑ€ÐµÐ´ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð¼" << endl;
 				ok2 = false;
 				break;
 			}
@@ -185,14 +185,14 @@ void getvar(int& var, string hintMessage, bool Positive)
 		if (varstring.find_first_not_of(check_cond) != string::npos)
 		{
 			if (Positive)
-				cout << "Íåâåðíûé ââîä: íàéäåí ñèìâîë, îòëè÷íûé îò öèôð" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð½Ð°Ð¹Ð´ÐµÐ½ ÑÐ¸Ð¼Ð²Ð¾Ð», Ð¾Ñ‚Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¾Ñ‚ Ñ†Ð¸Ñ„Ñ€" << endl;
 			else
-				cout << "Íåâåðíûé ââîä: íàéäåí ñèìâîë, îòëè÷íûé îò öèôð èëè ìèíóñà" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ð½Ð°Ð¹Ð´ÐµÐ½ ÑÐ¸Ð¼Ð²Ð¾Ð», Ð¾Ñ‚Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¾Ñ‚ Ñ†Ð¸Ñ„Ñ€ Ð¸Ð»Ð¸ Ð¼Ð¸Ð½ÑƒÑÐ°" << endl;
 			continue;
 		}
 		if (num_of_symbols(varstring, '-') > 1)
 		{
-			cout << "Íåâåðíûé ââîä: ÷èñëî ìèíóñîâ áîëüøå 1" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ‡Ð¸ÑÐ»Ð¾ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð² Ð±Ð¾Ð»ÑŒÑˆÐµ 1" << endl;
 			continue;
 		}
 		bool ok2 = true;
@@ -200,7 +200,7 @@ void getvar(int& var, string hintMessage, bool Positive)
 		{
 			if ((findplace(varstring, '-') > findplace(varstring, char(i + 48))) && (num_of_symbols(varstring, char(i + 48)) > 0))
 			{
-				cout << "Íåâåðíûé ââîä: öèôðà ñòîèò ïåðåä ìèíóñîì" << endl;
+				cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´: Ñ†Ð¸Ñ„Ñ€Ð° ÑÑ‚Ð¾Ð¸Ñ‚ Ð¿ÐµÑ€ÐµÐ´ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð¼" << endl;
 				ok2 = false;
 				break;
 			}
@@ -217,7 +217,7 @@ void show_title(string title, string name)
 	system("cls");
 	SetColor(0, 14);
 	cout << "===============================" << endl;
-	cout << "          Çàäàíèå " << title << endl;
+	cout << "          Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ " << title << endl;
 	cout << "-------------------------------" << endl;
 	cout << name << endl;
 	SetColor(0, 15);
