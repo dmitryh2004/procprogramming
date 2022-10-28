@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>
 #include <locale.h>
 #include <string>
@@ -1387,7 +1387,7 @@ void f4_9()
 	}
 
 	int64_t decimal = 0;
-	double float_decimal = 0.0f;
+	long double float_decimal = 0.0f;
 	int power = 0;
 	if (ok)
 	{
@@ -1429,7 +1429,7 @@ void f4_9()
 			bool need_round = true;
 			for (int i = 1; i <= L_int; i++) //переводим дробную часть в систему CS_out
 			{
-				num_out_float += alphabet[min(int(float_decimal * CS_out), CS_out-1)];
+				num_out_float += alphabet[min(int(float_decimal * CS_out), CS_out - 1)];
 				float_decimal *= CS_out;
 				float_decimal -= int(float_decimal);
 				if (float_decimal == 0) //если число переведено, то заканчиваем перевод, округление не требуется
@@ -1440,7 +1440,6 @@ void f4_9()
 			}
 			if (need_round)
 			{
-				cout << num_out_float << endl;
 				int last_index = findplace(alphabet, num_out_float[num_out_float.size() - 1]); //смотрим последнюю цифру числа
 				if (last_index / double(CS_out) >= 0.5) //если ее значение больше половины значения самой большой цифры в выходной СС
 				{
@@ -1737,16 +1736,17 @@ void f5_6()
 			cout << "Неверный ввод" << endl;
 	}
 
-	while ((n <= 0) || (n > 1000000))
+	while ((n <= 0) || (n > 50000000))
 	{
-		getvar(n, "Введите количество чисел в массиве (в диапазоне 0 - 1 000 000)", true);
-		if ((n <= 0) || (n > 1000000))
+		getvar(n, "Введите количество чисел в массиве (в диапазоне 0 - 50 000 000)", true);
+		if ((n <= 0) || (n > 50000000))
 		{
 			cout << "Неверный ввод" << endl;
 		}
 	}
 
 	int* N = new int[n];
+	int* found = new int[n];
 	for (int i = 0; i < n; i++)
 	{
 		N[i] = rand() % (abs(a - b) + 1) + a;
@@ -1758,23 +1758,41 @@ void f5_6()
 	int search = 0;
 	getvar(search, "Введите искомое число", false);
 
-	int count = 0;
-	for (int i = 0; i < n; i++)
-	{
-		if (N[i] == search)
-		{
-			count++;
-			cout << "Число найдено на позиции " << i + 1 << endl;
-		}
-	}
-	if (count)
-	{
-		cout << "Всего найдено чисел " << search << ": " << count << endl;
-	}
-	else
+	if (!is_in(search, a, b))
 	{
 		cout << "Число " << search << " не найдено ни разу" << endl;
 	}
+	else
+	{
+		int count = 0;
+		for (int i = 0; i < n; i++)
+		{
+			if (N[i] == search)
+			{
+				found[count] = i;
+				count++;
+			}
+		}
+		cout << endl << "Всего найдено чисел " << search << ": " << count << endl;
+		cout << "Вывести позиции, на которых находится число?";
+		SetColor(0, 12);
+		cout << " (может занять долгое время)";
+		SetColor(0, 15);
+		cout << endl << "Нажмите y, если да, и любую другую клавишу, если нет" << endl;
+		char act = _getch();
+		if (act == 'y')
+		{
+			cout << "Число " << search << " найдено на следующих позициях:";
+			for (int i = 0; i < count; i++)
+			{
+				if (i % 10 == 0)
+					cout << endl;
+				cout << setw(11) << found[i];
+			}
+			cout << endl;
+		}
+	}
+	delete[] found;
 	delete[] N;
 }
 
@@ -1928,3 +1946,11 @@ void f6_1()
 		cout << p << "% от общего количества" << endl;
 	}
 }
+
+//база заданий - задания:
+//тема         номер и название
+//базы данных  110 (монахи)
+//автомат      150 (порт)
+//сортировка   42 (точки)
+//разное       138 (check функция)
+//разное       146 (цифровой корень)
