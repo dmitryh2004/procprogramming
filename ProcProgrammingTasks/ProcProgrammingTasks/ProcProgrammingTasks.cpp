@@ -2003,6 +2003,89 @@ void f7_3()
 	SetColor(0, 12);
 	cout << "Не реализовано" << endl;
 	SetColor(0, 15);
+	typedef struct p { double x; double y; } point;
+	point A;
+	getvar(A.x, "Введите координату х точки А", false);
+	getvar(A.y, "Введите координату y точки А", false);
+	int n = 0;
+	while (n == 0)
+	{
+		getvar(n, "Введите количество точек В", true);
+		if (n == 0)
+			cout << "Неверный ввод" << endl;
+	}
+	point* B = new point[n];
+	cout << "Как вы хотите задать точки В (вручную - H/случайно - любой другой символ)" << endl;
+	char act = _getch();
+	if (tolower(act) == 'h')
+	{
+		for (int i = 0; i < n; i++)
+		{
+			getvar(B[i].x, "Введите координату х точки B #" + to_string(i+1), false);
+			getvar(B[i].y, "Введите координату y точки B #" + to_string(i+1), false);
+		}
+	}
+	else
+	{
+		double x_min = 0, x_max = 0, y_min = 0, y_max = 0;
+		getvar(x_min, "Введите нижнюю границу диапазона для х", false);
+		x_max = x_min - 1;
+		while (x_max < x_min)
+		{
+			getvar(x_max, "Введите верхнюю границу диапазона для х", false);
+			if (x_max < x_min)
+			{
+				cout << "Неверный ввод" << endl;
+			}
+		}
+		getvar(y_min, "Введите нижнюю границу диапазона для y", false);
+		y_max = y_min - 1;
+		while (y_max < y_min)
+		{
+			getvar(y_max, "Введите верхнюю границу диапазона для y", false);
+			if (y_max < y_min)
+			{
+				cout << "Неверный ввод" << endl;
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			B[i].x = double(rand() % (abs(int(x_min - x_max)) + 1)) + x_min;
+			B[i].y = double(rand() % (abs(int(y_min - y_max)) + 1)) + y_min;
+		}
+	}
+	int c = 0;
+	double min_range = -1;
+	for (int i = 0; i < n; i++)
+	{
+		double range = pow(B[i].x - A.x, 2) + pow(B[i].y - A.y, 2);
+		if (min_range == -1)
+		{
+			min_range = range;
+			c = i;
+		}
+		else
+		{
+			if (min_range > range)
+			{
+				c = i;
+				min_range = range;
+			}
+		}
+	}
+	cout << "Ближе всего к точке А (" << A.x << ", " << A.y << ") находится точка В #" << c + 1 << " с координатами (" << B[c].x << ", " << B[c].y << ") (расстояние: " << sqrt(min_range) << ")" << endl;
+	if (tolower(act) != 'h')
+	{
+		cout << "Вывести сгенерированные точки? (y - да, другой символ - нет)" << endl;
+		if (_getch() == 'y')
+		{
+			for (int i = 0; i < n; i++)
+			{
+				cout << "B #" << i + 1 << ": " << B[i].x << " " << B[i].y << endl;
+			}
+		}
+	}
+	delete[] B;
 }
 void f7_4()
 {
