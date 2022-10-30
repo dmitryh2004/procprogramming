@@ -212,6 +212,63 @@ void getvar(int& var, string hintMessage, bool Positive)
 	var = int(strtod(varstring.c_str(), nullptr));
 }
 
+void getvar(int64_t& var, string hintMessage, bool Positive)
+{
+	string check_cond;
+	if (Positive)
+		check_cond = "1234567890";
+	else
+		check_cond = "-1234567890";
+	string varstring = "a";
+	bool ok = false;
+	while (!ok)
+	{
+		cout << hintMessage << " -> ";
+		cin >> varstring;
+		if (varstring.find_first_not_of(check_cond) != string::npos)
+		{
+			if (Positive)
+				cout << "Неверный ввод: найден символ, отличный от цифр" << endl;
+			else
+				cout << "Неверный ввод: найден символ, отличный от цифр или минуса" << endl;
+			continue;
+		}
+		if (num_of_symbols(varstring, '-') > 1)
+		{
+			cout << "Неверный ввод: число минусов больше 1" << endl;
+			continue;
+		}
+		bool ok2 = true;
+		for (int i = 0; i < 10; i++)
+		{
+			if ((findplace(varstring, '-') > findplace(varstring, char(i + 48))) && (num_of_symbols(varstring, char(i + 48)) > 0))
+			{
+				cout << "Неверный ввод: цифра стоит перед минусом" << endl;
+				ok2 = false;
+				break;
+			}
+		}
+		if (!ok2)
+			continue;
+		ok = !ok;
+	}
+	int power = 0;
+	int64_t temp = 0;
+	for (int i = varstring.size()-1; i >= 0; i--)
+	{
+		if (varstring[i] == '-')
+		{
+			temp = -temp;
+		}
+		else
+		{
+			temp += pow(10, power) * (varstring.c_str()[i] - 48);
+		}
+		power++;
+	}
+	var = temp;
+}
+
 void show_title(string title, string name)
 {
 	system("cls");
