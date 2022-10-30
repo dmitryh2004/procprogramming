@@ -81,10 +81,10 @@ void main_menu()
 	setlocale(LC_ALL, "Russian");
 	string input;
 	int widths[5] = { 5, 50, -1, -1, -1 };
-	table::Table dz_list(2, 33, widths, "Список заданий:", 14);
+	table::Table dz_list(2, 38, widths, "Список заданий:", 14);
 	dz_list.set_data(0, 0, "Номер", 0, 13);
 	dz_list.set_data(0, 1, "Название задания", 0, 13);
-	for (int i = 1; i < 33; i++)
+	for (int i = 1; i < 38; i++)
 	{
 		dz_list.set_data(i, 0, dz_list_names[0][i - 1], 0, 13);
 		dz_list.set_data(i, 1, dz_list_names[1][i - 1], 0, 15);
@@ -243,23 +243,23 @@ void main_menu()
 		}
 		else if (input == "7-1")
 		{
-		f7_1();
+			f7_1();
 		}
 		else if (input == "7-2")
 		{
-		f7_2_Avtomat();
+			f7_2_Avtomat();
 		}
 		else if (input == "7-3")
 		{
-		f7_3();
+			f7_3();
 		}
 		else if (input == "7-4")
 		{
-		f7_4();
+			f7_4();
 		}
 		else if (input == "7-5")
 		{
-		f7_5();
+			f7_5();
 		}
 		else if (input == "list")
 		{
@@ -1982,12 +1982,317 @@ void f6_1()
 //разное       138 (check функция)
 //разное       146 (цифровой корень)
 
+void find_monach(int monach, int** table, int rows)
+{
+	bool was = false;
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < 4; j++)
+			if (table[i][j] == monach)
+				was = true;
+	if (was)
+	{
+		cout << monach << " - монах" << endl;
+		cout << "Его учителя: ";
+		int cur_monach = monach;
+		for (int i = rows - 1; i >= 0; i--)
+		{
+			for (int j = 3; j > 0; j--)
+			{
+				if (table[i][j] == cur_monach)
+				{
+					if (cur_monach != monach)
+					{
+						cout << ", ";
+					}
+					cout << table[i][0];
+					cur_monach = table[i][0];
+					if (cur_monach == 1)
+					{
+						break;
+					}
+				}
+			}
+			if (cur_monach == 1)
+			{
+				break;
+			}
+		}
+		cout << endl;
+	}
+	else
+	{
+		cout << monach << " - не монах" << endl;
+		return;
+	}
+}
+
+void find_nearest_teacher(int monach1, int monach2, int** table, int rows)
+{
+	bool was1 = false;
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < 4; j++)
+			if (table[i][j] == monach1)
+				was1 = true;
+	bool was2 = false;
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < 4; j++)
+			if (table[i][j] == monach2)
+				was2 = true;
+	if (!was1)
+	{
+		cout << monach1 << " - не монах" << endl;
+	}
+	if (!was2)
+	{
+		cout << monach2 << " - не монах" << endl;
+	}
+	if (was1 && was2)
+	{
+		string teachers1 = "";
+		int cur_monach = monach1;
+		for (int i = rows - 1; i >= 0; i--)
+		{
+			for (int j = 3; j > 0; j--)
+			{
+				if (table[i][j] == cur_monach)
+				{
+					if (cur_monach != monach1)
+					{
+						teachers1 += " ";
+					}
+					teachers1 += to_string(table[i][0]);
+					cur_monach = table[i][0];
+					if (cur_monach == 1)
+					{
+						break;
+					}
+				}
+			}
+			if (cur_monach == 1)
+			{
+				break;
+			}
+		}
+
+		string teachers2 = "";
+		cur_monach = monach2;
+		for (int i = rows - 1; i >= 0; i--)
+		{
+			for (int j = 3; j > 0; j--)
+			{
+				if (table[i][j] == cur_monach)
+				{
+					if (cur_monach != monach2)
+					{
+						teachers2 += " ";
+					}
+					teachers2 += to_string(table[i][0]);
+					cur_monach = table[i][0];
+					if (cur_monach == 1)
+					{
+						break;
+					}
+				}
+			}
+			if (cur_monach == 1)
+			{
+				break;
+			}
+		}
+
+		if (teachers2.size() == 1)
+			teachers2 += " ";
+		int index = 0;
+		while (index < teachers1.size())
+		{
+			int space_temp = index+1;
+			if (teachers1.find(' ', index) != string::npos)
+			{
+				space_temp = teachers1.find(' ', index);
+			}
+			
+			string t = "";
+			for (int i = index; i < space_temp; i++)
+			{
+				t += teachers1[i];
+			}
+			if (teachers2.find (t + " ") != string::npos)
+			{
+				cout << "Общий учитель: " << t << endl;
+				break;
+			}
+			
+			index = space_temp + 1;
+		}
+	}
+}
+
 void f7_1()
 {
 	show_title(dz_list_names[0][32], dz_list_names[1][32]);
-	SetColor(0, 12);
-	cout << "Не реализовано" << endl;
-	SetColor(0, 15);
+	fstream f("files/file7-1.txt");
+	if (!f)
+	{
+		cout << "Не удалось открыть исходный файл files/file7-1.txt" << endl;
+		return;
+	}
+	int n = 0;
+	string temp = "";
+	while (!f.eof())
+	{
+		getline(f, temp);
+		n++;
+	}
+	//выделение памяти под монахов
+	//указатель на массив указателей
+	int** monach_table = new int*[n]; 
+	for (int i = 0; i < n; i++)
+	{
+		//указатель на массив данных
+		monach_table[i] = new int[4];
+	}
+	///////////////////////////////
+	f.seekg(0);
+	int row = 0;
+	while (!f.eof())
+	{
+		getline(f, temp);
+		size_t spaces[] = {0, 0, 0, 0};
+		int index = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			spaces[i] = temp.find(' ', index);
+			index = spaces[i] + 1;
+		}
+		if (spaces[3] != string::npos)
+		{
+			cout << "Файл не отформатирован по схеме: \"номер монаха - номер ученика 1 - номер ученика 2 - номер ученика 3\"" << endl;
+			row = -1;
+			break;
+		}
+		string t[4] = {"", "", "", ""};
+		for (int i = 0; i < temp.size(); i++)
+		{
+			if (is_in(i, 0, spaces[0]-1))
+			{
+				t[0] += temp[i];
+			}
+			if (is_in(i, spaces[0]+1, spaces[1] - 1))
+			{
+				t[1] += temp[i];
+			}
+			if (is_in(i, spaces[1] + 1, spaces[2] - 1))
+			{
+				t[2] += temp[i];
+			}
+			if (is_in(i, spaces[2] + 1, temp.size() - 1))
+			{
+				t[3] += temp[i];
+			}
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			monach_table[row][i] = strtol(t[i].c_str(), nullptr, 0);
+		}
+		row++;
+	}
+
+	if (row != -1)
+	{
+		string input = "";
+		getline(cin, input); //холостое чтение
+		while (input != "0")
+		{
+			cout << "Введите команду или help для вывода списка команд" << endl;
+			getline(cin, input);
+			if (input == "help")
+			{
+				cout << "0 - выход из функции, реализующей это задание" << endl;
+				cout << "1 x - поиск монаха по номеру x" << endl;
+				cout << "2 x y - поиск ближайшего общего учителя монахов x и y" << endl;
+			}
+			else if (input == "0")
+			{
+
+			}
+			else
+			{
+				size_t spaces1[3] = { 0, string::npos, string::npos };
+				int index = 0;
+				for (int i = 0; i < 3; i++)
+				{
+					spaces1[i] = input.find(' ', index);
+					if (spaces1[i] != string::npos)
+						index = spaces1[i] + 1;
+					else
+						break;
+				}
+				if (spaces1[2] != string::npos)
+				{
+					cout << "Неверный ввод команды" << endl;
+				}
+				else
+				{
+					string t[3] = { "", "", "" };
+					if (spaces1[1] == string::npos)
+						spaces1[1]--;
+					if (spaces1[2] == string::npos)
+						spaces1[2]--;
+					for (int i = 0; i < input.size(); i++)
+					{
+						if (is_in(i, 0, spaces1[0] - 1))
+						{
+							t[0] += input[i];
+						}
+						if (is_in(i, spaces1[0] + 1, spaces1[1] - 1))
+						{
+							t[1] += input[i];
+						}
+						if (is_in(i, spaces1[1] + 1, spaces1[2] - 1))
+						{
+							t[2] += input[i];
+						}
+					}
+					if ((t[0] == "1") && (t[1] != "") && (t[2] == ""))
+					{
+						if (strtol(t[1].c_str(), nullptr, 0) != 0)
+						{
+							find_monach(strtol(t[1].c_str(), nullptr, 0), monach_table, n);
+						}
+						else
+						{
+							cout << "Неверный ввод команды" << endl;
+						}
+					}
+					else if ((t[0] == "2") && (t[1] != "") && (t[2] != ""))
+					{
+						if ((strtol(t[1].c_str(), nullptr, 0) == 0) || (strtol(t[1].c_str(), nullptr, 0) == 0))
+						{
+							cout << "Неверный ввод команды" << endl;
+						}
+						else
+							find_nearest_teacher(strtol(t[1].c_str(), nullptr, 0), strtol(t[2].c_str(), nullptr, 0), monach_table, n);
+					}
+					else
+					{
+						cout << "Неверный ввод команды" << endl;
+					}
+				}
+			}
+			cout << endl;
+		}
+	}
+	//удаление памяти под монахов
+	f.close();
+	for (int i = 0; i < n; i++)
+	{
+		//удаление указателя на массив данных
+		delete[] monach_table[i];
+	}
+	//удаление указателя на массив указателей
+	delete[] monach_table;
+	///////////////////////////////
+	
 }
 
 void f7_2_Avtomat()
@@ -2000,9 +2305,6 @@ void f7_2_Avtomat()
 void f7_3()
 {
 	show_title(dz_list_names[0][34], dz_list_names[1][34]);
-	SetColor(0, 12);
-	cout << "Не реализовано" << endl;
-	SetColor(0, 15);
 	typedef struct p { double x; double y; } point;
 	point A;
 	getvar(A.x, "Введите координату х точки А", false);
@@ -2015,18 +2317,24 @@ void f7_3()
 			cout << "Неверный ввод" << endl;
 	}
 	point* B = new point[n];
-	cout << "Как вы хотите задать точки В (вручную - H/случайно - любой другой символ)" << endl;
+	cout << "Как вы хотите задать точки В? (вручную - H/случайно - любой другой символ)" << endl;
 	char act = _getch();
 	if (tolower(act) == 'h')
 	{
+		SetColor(0, 11);
+		cout << "Выбран ручной способ ввода" << endl;
+		SetColor(0, 15);
 		for (int i = 0; i < n; i++)
 		{
-			getvar(B[i].x, "Введите координату х точки B #" + to_string(i+1), false);
-			getvar(B[i].y, "Введите координату y точки B #" + to_string(i+1), false);
+			getvar(B[i].x, "Введите координату х точки B #" + to_string(i + 1), false);
+			getvar(B[i].y, "Введите координату y точки B #" + to_string(i + 1), false);
 		}
 	}
 	else
 	{
+		SetColor(0, 11);
+		cout << "Выбран случайный способ ввода: необходимо задать диапазон для генерации случайных координат" << endl;
+		SetColor(0, 15);
 		double x_min = 0, x_max = 0, y_min = 0, y_max = 0;
 		getvar(x_min, "Введите нижнюю границу диапазона для х", false);
 		x_max = x_min - 1;
@@ -2087,17 +2395,130 @@ void f7_3()
 	}
 	delete[] B;
 }
+
+int check(string str) //функция для 7-4
+{
+	string temp = str;
+	string bounds = "()[]{}";
+	string temp2 = "";
+	int iterations = 0;
+	for (int i = 0; i < temp.size(); i++) //убираем пробелы
+	{
+		if (findplace(bounds, temp[i]) != -1)
+		{
+			temp2 += temp[i];
+		}
+	}
+	temp = temp2;
+	if ((num_of_symbols(temp, '(') != num_of_symbols(temp, ')')) ||
+		(num_of_symbols(temp, '[') != num_of_symbols(temp, ']')) ||
+		(num_of_symbols(temp, '{') != num_of_symbols(temp, '}'))) //если число открывающих скобок не равно числу закрывающих скобок,
+		//дальнейшая проверка смысла не имеет
+		return 1;
+	while (1)
+	{
+		iterations++;
+		if (temp.find("()") == string::npos)
+		{
+			if (temp.find("[]") == string::npos)
+			{
+				if (temp.find("{}") == string::npos)
+				{
+					if (temp != "")
+						return 2;
+					else break;
+				}
+				else
+				{
+					replaceall(temp, "{}", "");
+				}
+			}
+			else
+			{
+				replaceall(temp, "[]", "");
+			}
+		}
+		else
+		{
+			replaceall(temp, "()", "");
+		}
+		if (iterations > 4000)
+			return -1;
+	}
+	return 0;
+}
+
 void f7_4()
 {
 	show_title(dz_list_names[0][35], dz_list_names[1][35]);
-	SetColor(0, 12);
-	cout << "Не реализовано" << endl;
-	SetColor(0, 15);
+	string str = "";
+	cout << "Введите скобочное выражение для проверки: -> ";
+	getline(cin, str); //чтение "вхолостую", чтобы сбросить "пустой" буфер в cin
+	getline (cin, str);
+	int check_str = check(str);
+	switch (check_str)
+	{
+	case 0:
+		SetColor(0, 10);
+		cout << "Ошибок не найдено" << endl;
+		SetColor(0, 15);
+		break;
+	case 1:
+		SetColor(0, 12);
+		cout << "Обнаружены непарные скобки" << endl;
+		SetColor(0, 15);
+		break;
+	case 2:
+		SetColor(0, 12);
+		cout << "Скобки расположены в порядке, не позволяющем их убрать (например: ";
+		SetColor(0, 14);
+		cout << "[{]}";
+		SetColor(0, 12);
+		cout << ")" << endl;
+		SetColor(0, 15);
+		break;
+	default:
+		SetColor(0, 14);
+		cout << "Возникла ошибка при проверке строки - результат неизвестен" << endl;
+		SetColor(0, 15);
+	}
+
 }
+
+void digital_root(int64_t num)
+{
+	string temp = to_string(num);
+	int64_t dr = 0;
+	string digit;
+	for (int i = 0; i < temp.size(); i++)
+	{
+		digit = temp[i];
+		dr += int(_strtoi64(digit.c_str(), nullptr, 0));
+	}
+	if (dr < 10)
+	{
+		SetColor(0, 14);
+		cout << dr;
+		SetColor(0, 15);
+	}
+	else
+	{
+		cout << dr << " -> ";
+		digital_root(dr);
+	}
+}
+
+void digital_root_output(int64_t num)
+{
+	cout << "Цифровой корень числа " << num << ": " << num << " -> ";
+	digital_root(num);
+	cout << endl;
+}
+
 void f7_5()
 {
 	show_title(dz_list_names[0][36], dz_list_names[1][36]);
-	SetColor(0, 12);
-	cout << "Не реализовано" << endl;
-	SetColor(0, 15);
+	int64_t a = 0;
+	getvar(a, "Введите положительное целое число", true);
+	digital_root_output(a);
 }
