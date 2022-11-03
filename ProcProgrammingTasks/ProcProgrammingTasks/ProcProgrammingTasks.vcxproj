@@ -158,6 +158,8 @@
     <ClInclude Include="functions.h" />
     <ClInclude Include="input_processing.h" />
     <ClInclude Include="Table.h" />
+    <ClInclude Include="Table_v2.h" />
+    <ClInclude Include="Task7_2Code.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

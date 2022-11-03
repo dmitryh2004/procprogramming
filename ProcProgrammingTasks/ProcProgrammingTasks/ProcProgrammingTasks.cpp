@@ -13,6 +13,7 @@
 #include "Table.h"
 #include "functions.h"
 #include "input_processing.h"
+#include "Task7_2Code.h"
 
 using namespace std;
 
@@ -78,7 +79,6 @@ void f7_5();
 
 void main_menu()
 {
-
 	setlocale(LC_ALL, "Russian");
 	string input;
 	int widths[5] = { 5, 50, -1, -1, -1 };
@@ -1800,35 +1800,33 @@ void f5_7()
 	{
 		string temp = "";
 		bool ok = true;
-		float average = 0;
+		float average = 0.0f;
 		int count = 0;
 		while (!inf.eof())
 		{
 			temp = "";
 			getline(inf, temp);
-			if (!inf.eof())
+			size_t spaces[] = { 0, 0, 0, 0, 0, 0, 0 };
+			int index = 0;
+			for (int i = 0; i < 7; i++)
 			{
-				size_t spaces[] = { 0, 0, 0, 0, 0, 0 };
-				int index = 0;
-				for (int i = 0; i < 6; i++)
+				spaces[i] = temp.find(' ', index);
+				if ((spaces[i] == string::npos) && (i != 6))
 				{
-					spaces[i] = temp.find(' ', index);
-					if (spaces[i] == string::npos)
-					{
-						ok = false;
-						break;
-					}
-					index = spaces[i] + 1;
-				}
-				if (!ok)
-				{
-					cout << "Файл не отформатирован по следующей схеме:\n\
-номер зачетки - фамилия студента - оценка 1, 2, 3, 4, 5" << endl;
+					ok = false;
 					break;
 				}
-				count += 5;
-				average += (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5);
+				index = spaces[i] + 1;
 			}
+			if (spaces[6] != string::npos) ok = false;
+			if (!ok)
+			{
+				cout << "Файл не отформатирован по следующей схеме:\n\
+номер зачетки - фамилия студента - оценка 1, 2, 3, 4, 5" << endl;
+				break;
+			}
+			count += 5;
+			average += (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5);
 		}
 		if (ok)
 		{
@@ -1841,20 +1839,17 @@ void f5_7()
 			{
 				temp = "";
 				getline(inf, temp);
-				if (!inf.eof())
+				size_t spaces[] = { 0, 0, 0, 0, 0, 0 };
+				int index = 0;
+				for (int i = 0; i < 6; i++)
 				{
-					size_t spaces[] = { 0, 0, 0, 0, 0, 0 };
-					int index = 0;
-					for (int i = 0; i < 6; i++)
-					{
-						spaces[i] = temp.find(' ', index);
-						index = spaces[i] + 1;
-					}
-					average1 = (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5) / 5.0f;
-					if (average1 > average)
-					{
-						cout << temp << endl;
-					}
+					spaces[i] = temp.find(' ', index);
+					index = spaces[i] + 1;
+				}
+				average1 = (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5) / 5.0f;
+				if (average1 > average)
+				{
+					cout << temp << endl;
 				}
 			}
 		}
@@ -1870,7 +1865,9 @@ void f6_1()
 {
 	show_title(dz_list_names[0][31], dz_list_names[1][31]);
 	int n = 0;
-	getvar(n, "Введите количество шариков (рекомендуется не более 170)", true, greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	cout << "Максимальное количество шариков, при котором возможно напечатать все перестановки - 21" << endl;
+	cout << "Максимальное количество шариков, для которого можно рассчитать примерное число перестановок - 170" << endl;
+	getvar(n, "Введите количество шариков", true, greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
 	if (n > 170)
 	{
 		cout << "При вычислениях получен слишком большой результат (больше, чем 10^307)" << endl;
@@ -1878,10 +1875,6 @@ void f6_1()
 	else
 	{
 		double Q = 0; //число ситуаций, при которых номер ни одного шарика не совпадет с порядком вынимания
-
-		//double выбран, потому что диапазон представления чисел в int64_t от -9223372036854775807 до 9223372036854775807
-		//(от -10^19 до 10^19; даже если будет unsigned, то максимальное число будет около 10^20, которое меньше результата
-		//программы для 22 шариков), а диапазон представления чисел в double - от -10^307 до 10^307
 
 		//Формула для расчета: P = n! - (n! * sum((-1)^k / k!)), где k = 0,1,...,n
 
@@ -1902,36 +1895,64 @@ void f6_1()
 		double P = 0; //число ситуаций, обратных ситуациям Q, т.е. хотя бы у 1 шарика его номер совпал с порядком
 		P = all - Q;
 		SetColor(0, 10);
-		cout << "Количество перестановок, при которых номер хотя бы 1 шарика совпадет с порядком\nвынимания этих шариков:\n";
+		cout << "Количество перестановок, при которых номер хотя бы 1 шарика совпадет с порядком\nвынимания этих шариков: ";
 		SetColor(0, 15);
-		cout << setprecision(0) << fixed << P;
-		cout.unsetf(ios::fixed);
-		cout << setprecision(prec);
-		SetColor(0, 7);
 		if (P > pow(10, 10))
-			cout << " (примерно " << P << ")";
+			cout << "примерно ";
+		cout << P;
 		SetColor(0, 15);
 		cout << endl;
 
 		double p = P / all * 100;
 		SetColor(0, 14);
 		if ((n % 10 == 1) && (n % 100 != 11))
-			cout << "\nВсего перестановок из " << n << " шарика:\n";
+			cout << "\nВсего перестановок из " << n << " шарика: ";
 		else
-			cout << "\nВсего перестановок из " << n << " шариков:\n";
+			cout << "\nВсего перестановок из " << n << " шариков: ";
 		SetColor(0, 15);
-		cout << setprecision(0) << fixed << all;
-		cout.unsetf(ios::fixed);
-		cout << setprecision(prec);
-		SetColor(0, 7);
 		if (all > pow(10, 10))
-			cout << " (примерно " << all << ")";
+			cout << "примерно ";
+		cout << all;
 		SetColor(0, 15);
 		cout << endl;
 		SetColor(0, 11);
 		cout << "\nКоличество подходящих перестановок: ";
 		SetColor(0, 15);
 		cout << p << "% от общего количества" << endl;
+
+		if (n <= 21)
+		{
+			cout << "Вывести перестановки, удовлетворяющие условиям? ";
+			SetColor(0, 12);
+			cout << "(может занять долгое время)" << endl;
+			SetColor(0, 15);
+			cout << "(y - да/другой символ - нет)" << endl;
+			if (tolower(_getch()) == 'y')
+			{
+				unsigned long long num = 1;
+				int* permutations = new int[n];
+				for (int i = 0; i < n; i++)
+				{
+					permutations[i] = i + 1;
+				}
+				print_permutation(permutations, n, num);
+				while (nextSet(permutations, n))
+				{
+					num++;
+					bool ok = false;
+					for (int i = 0; i < n; i++)
+					{
+						if (permutations[i] == i+1)
+						{
+							ok = true;
+							break;
+						}
+					}
+					if (ok) print_permutation(permutations, n, num);
+				}
+				delete[] permutations;
+			}
+		}
 	}
 }
 
@@ -2236,7 +2257,7 @@ void f7_1()
 					}
 					else
 					{
-						cout << "Неверный ввод команды (синтаксис)" << endl;
+						cout << "Такой команды не существует" << endl;
 					}
 				}
 			}
@@ -2271,12 +2292,7 @@ void f7_3()
 	getvar(A.x, "Введите координату х точки А", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
 	getvar(A.y, "Введите координату y точки А", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
 	int n = 0;
-	while (n == 0)
-	{
-		getvar(n, "Введите количество точек В", true, greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-		if (n == 0)
-			cout << "Неверный ввод" << endl;
-	}
+	getvar(n, "Введите количество точек В (в диапазоне 0 - 10 000 000)", true, NULL, is_in_or_equal, NULL, 0, 0, 10000000, 0, 0, 0);
 	point* B = new point[n];
 	cout << "Как вы хотите задать точки В? (вручную - H/случайно - любой другой символ)" << endl;
 	char act = _getch();

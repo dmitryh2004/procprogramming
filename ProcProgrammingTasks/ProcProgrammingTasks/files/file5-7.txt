@@ -1,0 +1,8 @@
+12345 Sidorov 5 5 5 5 5
+12346 Petrov 4 5 5 4 3
+12347 Ivanov 5 5 4 5 5
+12348 Smirnov 5 4 4 5 4
+12349 Karpov 5 4 5 4 5
+12350 Petrosyan 3 4 4 5 5
+12351 Unnamed 5 4 5 4 5
+12352 Chelovek 2 2 3 2 2

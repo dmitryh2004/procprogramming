@@ -64,6 +64,43 @@ string reverse(string arg)
 	return temp;
 }
 
+//перестановки
+bool nextSet(int* a, int n)
+{
+	int j = n - 2;
+	while ((j != -1) && (a[j] > a[j+1])) j--;
+	if (j == -1)
+		return false;
+	int k = n - 1;
+	while (a[j] > a[k]) k--;
+	swap(a[j], a[k]);
+	int l = j + 1, r = n - 1;
+	while (l < r)
+	{
+		swap(a[l], a[r]);
+		l++;
+		r--;
+	}
+	return true;
+}
+
+void print_permutation(int *a, int n, unsigned long long num)
+{
+	cout << "Перестановка " << setw(20) << num << ": ";
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] == i+1)
+		{
+			SetColor(0, 14);
+		}
+		cout << a[i] << " ";
+		if (a[i] == i+1)
+		{
+			SetColor(0, 15);
+		}
+	}
+	cout << endl;
+}
 
 //conditions for check in input_processing
 //one-parameter check functions
