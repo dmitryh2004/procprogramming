@@ -31,3 +31,9 @@
 30 17 0 Yamato 0 85943
 31 17 12 Hosho 2 60000
 32 18 0 Kawachi 1 40000
+33 18 1 Evergreen 2 120000
+34 18 2 Krasnodar 1 11500
+35 18 5 Krasnoyarsk 0 25400
+36 18 12 Semenovsk 1 34596
+37 18 15 Ufa 2 50000
+38 19 0 Vladimir 1 84000

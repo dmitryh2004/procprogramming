@@ -2280,9 +2280,7 @@ void f7_1()
 void f7_2_Avtomat()
 {
 	show_title(dz_list_names[0][33], dz_list_names[1][33]);
-	SetColor(0, 12);
-	cout << "Не реализовано" << endl;
-	SetColor(0, 15);
+	port_modelling_menu();
 }
 void f7_3()
 {
