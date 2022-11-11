@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>
 #include <locale.h>
 #include <string>
@@ -1341,7 +1341,7 @@ void f4_9()
 	int min_CS = 2; //аналогично max_CS
 	int CS_in = 0, CS_out = 0; //входная СС и выходная СС
 	string num_in = "a", num_out = "", num_out_float = ""; //входное и выходное число
-	
+
 	getvar(CS_in, "Введите исходную СС (2-36)", true, NULL, *is_in_or_equal, NULL, 0, 2, 36, 0, 0, 0);
 
 	getvar(CS_out, "Введите конечную СС (2-36)", true, NULL, *is_in_or_equal, NULL, 0, 2, 36, 0, 0, 0);
@@ -1806,24 +1806,27 @@ void f5_7()
 		{
 			temp = "";
 			getline(inf, temp);
-			size_t spaces[] = { 0, 0, 0, 0, 0, 0, 0 };
-			int index = 0;
-			for (int i = 0; i < 7; i++)
-			{
-				spaces[i] = temp.find(' ', index);
-				if ((spaces[i] == string::npos) && (i != 6))
-				{
-					ok = false;
-					break;
-				}
-				index = spaces[i] + 1;
-			}
-			if (spaces[6] != string::npos) ok = false;
-			if (!ok)
+			if (num_of_symbols(temp, ' ') != 6)
 			{
 				cout << "Файл не отформатирован по следующей схеме:\n\
 номер зачетки - фамилия студента - оценка 1, 2, 3, 4, 5" << endl;
-				break;
+				return;
+			}
+			size_t spaces[] = { 0, 0, 0, 0, 0, 0 };
+			int index = 0;
+			for (int i = 0; i < 6; i++)
+			{
+				spaces[i] = temp.find(' ', index);
+				index = spaces[i] + 1;
+			}
+			for (int i = 2; i < 6; i++)
+			{
+				if ((spaces[i] - spaces[i - 1] != 2))
+				{
+					cout << "Файл не отформатирован по следующей схеме:\n\
+номер зачетки - фамилия студента - оценка 1, 2, 3, 4, 5" << endl;
+					return;
+				}
 			}
 			count += 5;
 			average += (int(temp[spaces[2] + 1]) + int(temp[spaces[3] + 1]) + int(temp[spaces[4] + 1]) + int(temp[spaces[5] + 1]) + int(temp[spaces[1] + 1]) - 48 * 5);
@@ -1942,7 +1945,7 @@ void f6_1()
 					bool ok = false;
 					for (int i = 0; i < n; i++)
 					{
-						if (permutations[i] == i+1)
+						if (permutations[i] == i + 1)
 						{
 							ok = true;
 							break;
@@ -2087,23 +2090,23 @@ void find_nearest_teacher(int monach1, int monach2, int** table, int rows)
 		int index = 0;
 		while (index < teachers1.size())
 		{
-			int space_temp = index+1;
+			int space_temp = index + 1;
 			if (teachers1.find(' ', index) != string::npos)
 			{
 				space_temp = teachers1.find(' ', index);
 			}
-			
+
 			string t = "";
 			for (int i = index; i < space_temp; i++)
 			{
 				t += teachers1[i];
 			}
-			if (teachers2.find (t + " ") != string::npos)
+			if (teachers2.find(t + " ") != string::npos)
 			{
 				cout << "Общий учитель: " << t << endl;
 				break;
 			}
-			
+
 			index = space_temp + 1;
 		}
 	}
@@ -2127,7 +2130,7 @@ void f7_1()
 	}
 	//выделение памяти под монахов
 	//указатель на массив указателей
-	int** monach_table = new int*[n]; 
+	int** monach_table = new int* [n];
 	for (int i = 0; i < n; i++)
 	{
 		//указатель на массив данных
@@ -2139,7 +2142,8 @@ void f7_1()
 	while (!f.eof())
 	{
 		getline(f, temp);
-		size_t spaces[] = {0, 0, 0, 0};
+		size_t spaces[] = { 0, 0, 0, 0 };
+		bool ok = true;
 		int index = 0;
 		for (int i = 0; i < 4; i++)
 		{
@@ -2152,14 +2156,14 @@ void f7_1()
 			row = -1;
 			break;
 		}
-		string t[4] = {"", "", "", ""};
+		string t[4] = { "", "", "", "" };
 		for (int i = 0; i < temp.size(); i++)
 		{
-			if (is_in_or_equal(i, 0, spaces[0]-1))
+			if (is_in_or_equal(i, 0, spaces[0] - 1))
 			{
 				t[0] += temp[i];
 			}
-			if (is_in_or_equal(i, spaces[0]+1, spaces[1] - 1))
+			if (is_in_or_equal(i, spaces[0] + 1, spaces[1] - 1))
 			{
 				t[1] += temp[i];
 			}
@@ -2172,10 +2176,60 @@ void f7_1()
 				t[3] += temp[i];
 			}
 		}
+		int ti[4] = {strtol(t[0].c_str(), nullptr, 0), strtol(t[1].c_str(), nullptr, 0), strtol(t[2].c_str(), nullptr, 0), strtol(t[3].c_str(), nullptr, 0) };
+		if (((ti[0] >= ti[1]) && ti[1]) || ((ti[0] >= ti[2]) && ti[2]) || ((ti[0] >= ti[3]) && ti[3])) //если номер ученика меньше номера учителя
+		{
+			SetColor(0, 12);
+			cout << "Номер ученика меньше номера учителя в строке " << row + 1 << endl;
+			SetColor(0, 15);
+			ok = false;
+		}
+		if (!ti[1] && !ti[2] && !ti[3])
+		{
+			SetColor(0, 14);
+			cout << "Предупреждение: в строке " << row+1 << " у учителя нет ни одного ученика; данная строка смысла не имеет" << endl;
+			SetColor(0, 15);
+		}
+		//если один и тот же монах встречается в качестве учителя повторно
+		for (int i = 0; i < row; i++)
+		{
+			if (monach_table[i][0] == ti[0])
+			{
+				SetColor(0, 12);
+				cout << "Учитель в строке " << i + 1 << " объявлен более 1 раза" << endl;
+				SetColor(0, 15);
+				ok = false;
+			}
+		}
+		//если один и тот же монах фигурирует в качестве ученика повторно
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 1; j < 4; j++)
+			{
+				for (int k = 1; k < 4; k++)
+				{
+					if ((monach_table[i][j] == ti[k]) && ti[k])
+					{
+						SetColor(0, 12);
+						cout << "Монах " << ti[k] << " в строке " << i + 1 << " уже объявлен как ученик" << endl;
+						ok = false;
+						SetColor(0, 15);
+					}
+				}
+			}
+			
+		}
+		if (!ok)
+		{
+			row = -1;
+			break;
+		}
+			
 		for (int i = 0; i < 4; i++)
 		{
 			monach_table[row][i] = strtol(t[i].c_str(), nullptr, 0);
 		}
+		
 		row++;
 	}
 
@@ -2274,7 +2328,7 @@ void f7_1()
 	//удаление указателя на массив указателей
 	delete[] monach_table;
 	///////////////////////////////
-	
+
 }
 
 void f7_2_Avtomat()
@@ -2429,7 +2483,7 @@ void f7_4()
 	string str = "";
 	cout << "Введите скобочное выражение для проверки: -> ";
 	getline(cin, str); //чтение "вхолостую", чтобы сбросить "пустой" буфер в cin
-	getline (cin, str);
+	getline(cin, str);
 	int check_str = check(str);
 	switch (check_str)
 	{
