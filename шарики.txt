@@ -1,0 +1,134 @@
+﻿#include <iostream>
+#include <string>
+//если каких-то библиотек не будет хватать, скажи
+
+bool nextSet(int* a, int n)
+{
+	int j = n - 2;
+	while ((j != -1) && (a[j] > a[j+1])) j--;
+	if (j == -1)
+		return false;
+	int k = n - 1;
+	while (a[j] > a[k]) k--;
+	swap(a[j], a[k]);
+	int l = j + 1, r = n - 1;
+	while (l < r)
+	{
+		swap(a[l], a[r]);
+		l++;
+		r--;
+	}
+	return true;
+}
+
+void print_permutation(int *a, int n, unsigned long long num)
+{
+	cout << "Перестановка " << setw(20) << num << ": ";
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] == i+1)
+		{
+			SetColor(0, 14);
+		}
+		cout << a[i] << " ";
+		if (a[i] == i+1)
+		{
+			SetColor(0, 15);
+		}
+	}
+	cout << endl;
+}
+
+int main()
+{
+	int n = 0;
+	cout << "Максимальное количество шариков, при котором возможно напечатать все перестановки - 21" << endl;
+	cout << "Максимальное количество шариков, для которого можно рассчитать примерное число перестановок - 170" << endl;
+	getvar(n, "Введите количество шариков", true, greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	if (n > 170)
+	{
+		cout << "При вычислениях получен слишком большой результат (больше, чем 10^307)" << endl;
+	}
+	else
+	{
+		double Q = 0; //число ситуаций, при которых номер ни одного шарика не совпадет с порядком вынимания
+
+		//Формула для расчета: P = n! - (n! * sum((-1)^k / k!)), где k = 0,1,...,n
+
+		double all = fact(n);
+
+		Q = all;
+
+		double tempQ = 0;
+		for (int k = 0; k <= n; k++)
+		{
+			double temp = pow(-1, k);
+			temp /= fact(k);
+			tempQ += temp;
+		}
+		Q *= tempQ;
+
+		int prec = cout.precision();
+		double P = 0; //число ситуаций, обратных ситуациям Q, т.е. хотя бы у 1 шарика его номер совпал с порядком
+		P = all - Q;
+		SetColor(0, 10);
+		cout << "Количество перестановок, при которых номер хотя бы 1 шарика совпадет с порядком\nвынимания этих шариков: ";
+		SetColor(0, 15);
+		if (P > pow(10, 10))
+			cout << "примерно ";
+		cout << P;
+		SetColor(0, 15);
+		cout << endl;
+
+		double p = P / all * 100;
+		SetColor(0, 14);
+		if ((n % 10 == 1) && (n % 100 != 11))
+			cout << "\nВсего перестановок из " << n << " шарика: ";
+		else
+			cout << "\nВсего перестановок из " << n << " шариков: ";
+		SetColor(0, 15);
+		if (all > pow(10, 10))
+			cout << "примерно ";
+		cout << all;
+		SetColor(0, 15);
+		cout << endl;
+		SetColor(0, 11);
+		cout << "\nКоличество подходящих перестановок: ";
+		SetColor(0, 15);
+		cout << p << "% от общего количества" << endl;
+
+		if (n <= 21)
+		{
+			cout << "Вывести перестановки, удовлетворяющие условиям? ";
+			SetColor(0, 12);
+			cout << "(может занять долгое время)" << endl;
+			SetColor(0, 15);
+			cout << "(y - да/другой символ - нет)" << endl;
+			if (tolower(_getch()) == 'y')
+			{
+				unsigned long long num = 1;
+				int* permutations = new int[n];
+				for (int i = 0; i < n; i++)
+				{
+					permutations[i] = i + 1;
+				}
+				print_permutation(permutations, n, num);
+				while (nextSet(permutations, n))
+				{
+					num++;
+					bool ok = false;
+					for (int i = 0; i < n; i++)
+					{
+						if (permutations[i] == i + 1)
+						{
+							ok = true;
+							break;
+						}
+					}
+					if (ok) print_permutation(permutations, n, num);
+				}
+				delete[] permutations;
+			}
+		}
+	}
+}
