@@ -20,7 +20,7 @@ using namespace std;
 const double pi = 3.14159;
 const double e = 2.71828;
 
-string dz_list_names[2][37] = {
+string dz_list_names[2][38] = {
 	{"1-1", "1-2", "1-3", "1-4", "1-5",
 	"2-1", "2-2", "2-3", "2-4", "2-5",
 	"3-1", "3-2", "3-3", "3-4", "3-5",
@@ -28,7 +28,7 @@ string dz_list_names[2][37] = {
 	"4-6", "4-7", "4-8", "4-9",
 	"5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7",
 	"6-1",
-	"7-1", "7-2", "7-3", "7-4", "7-5"},
+	"7-1", "7-2", "7-3", "7-4", "7-5", "7-6"},
 	{"Имя", "Калькулятор", "Уравнение: bx + c = 0", "Уравнение: ax^2 + bx + c = 0", "Лампочка и шторы",
 	"Конус", "Разветвление", "Функция z = ln (b - y) * sqrt (b - x)", "Порядок", "Табуляция функции y = (x^2 - 2x + 2) / (x - 1)",
 	"Займ", "Процент займа", "Файлы", "Фильтр", "Сортировка",
@@ -36,7 +36,7 @@ string dz_list_names[2][37] = {
 	"Римские цифры", "\"Случайные\" числа", "Про продавцов", "Системы счисления",
 	"Алгоритм Евклида", "Решето Эратосфена", "Обработка текстовых файлов 1", "Обработка текстовых файлов 2", "Ряды 1", "Ряды 2", "Файлы",
 	"Шарики",
-	"Монахи", "Порт (на автомат)", "Точки", "Проверка скобочных выражений", "Цифровой корень"}
+	"Монахи", "Порт (на автомат)", "Точки", "Проверка скобочных выражений", "Цифровой корень", "Ханойская башня"}
 };
 
 void f1_1();
@@ -76,16 +76,17 @@ void f7_2_Avtomat();
 void f7_3();
 void f7_4();
 void f7_5();
+void f7_6();
 
 void main_menu()
 {
 	setlocale(LC_ALL, "Russian");
 	string input;
 	int widths[5] = { 5, 50, -1, -1, -1 };
-	table::Table dz_list(2, 38, widths, "Список заданий:", 14);
+	table::Table dz_list(2, 39, widths, "Список заданий:", 14);
 	dz_list.set_data(0, 0, "Номер", 0, 13);
 	dz_list.set_data(0, 1, "Название задания", 0, 13);
-	for (int i = 1; i < 38; i++)
+	for (int i = 1; i < 39; i++)
 	{
 		dz_list.set_data(i, 0, dz_list_names[0][i - 1], 0, 13);
 		dz_list.set_data(i, 1, dz_list_names[1][i - 1], 0, 15);
@@ -262,6 +263,10 @@ void main_menu()
 		{
 			f7_5();
 		}
+		else if (input == "7-6")
+		{
+			f7_6();
+		}
 		else if (input == "list")
 		{
 			dz_list.show();
@@ -289,8 +294,8 @@ void f1_2()
 {
 	show_title(dz_list_names[0][1], dz_list_names[1][1]);
 	float a, b;
-	getvar(a, "Введите а", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(b, "Введите b", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите а", false);
+	getvar(b, "Введите b", false);
 	cout << "a + b = " << a + b << "\na - b = " << a - b << "\na * b = " << a * b << "\n";
 	if (b != 0)
 		cout << "a / b = " << a / b << endl;
@@ -302,8 +307,8 @@ void f1_3()
 {
 	show_title(dz_list_names[0][2], dz_list_names[1][2]);
 	float b, c;
-	getvar(b, "Введите b", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(c, "Введите c", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(b, "Введите b", false);
+	getvar(c, "Введите c", false);
 	if (0 == b)
 	{
 		if (0 == c)
@@ -325,9 +330,9 @@ void f1_4()
 {
 	show_title(dz_list_names[0][3], dz_list_names[1][3]);
 	float a, b, c;
-	getvar(a, "Введите a", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(b, "Введите b", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(c, "Введите c", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите a", false);
+	getvar(b, "Введите b", false);
+	getvar(c, "Введите c", false);
 	if (a == 0)
 	{
 		if (0 == b)
@@ -401,13 +406,13 @@ void f2_1()
 {
 	show_title(dz_list_names[0][5], dz_list_names[1][5]);
 	double h, R, r, l;
-	getvar(h, "Введите высоту конуса", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(h, "Введите высоту конуса", true, *greater_1v, NULL, NULL, 0);
 	h = round(h * pow(10, 6)) / pow(10, 6); //округление до 5-го знака после запятой
 
-	getvar(R, "Введите радиус нижнего основания конуса", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(R, "Введите радиус нижнего основания конуса", true, *greater_1v, NULL, NULL, 0);
 	R = round(R * pow(10, 6)) / pow(10, 6); //округление до 5-го знака после запятой
 
-	getvar(r, "Введите радиус верхнего основания конуса", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(r, "Введите радиус верхнего основания конуса", true, *greater_1v, NULL, NULL, 0);
 	r = round(r * pow(10, 6)) / pow(10, 6); //округление до 5-го знака после запятой
 	double V, S;
 
@@ -441,8 +446,8 @@ void f2_2()
 {
 	show_title(dz_list_names[0][6], dz_list_names[1][6]);
 	float a, x;
-	getvar(a, "Введите a", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(x, "Введите x", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите a", false);
+	getvar(x, "Введите x", false);
 	float w;
 
 	if (abs(x) < 1)
@@ -473,9 +478,9 @@ void f2_3()
 {
 	show_title(dz_list_names[0][7], dz_list_names[1][7]);
 	float b, x, y;
-	getvar(b, "Введите b", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(x, "Введите x", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(y, "Введите y", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(b, "Введите b", false);
+	getvar(x, "Введите x", false);
+	getvar(y, "Введите y", false);
 
 	if (!((b - y) > 0) || ((b - x) < 0))
 	{
@@ -492,7 +497,7 @@ void f2_4()
 {
 	show_title(dz_list_names[0][8], dz_list_names[1][8]);
 	int n;
-	getvar(n, "Введите натуральное n", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(n, "Введите натуральное n", true, *greater_1v, NULL, NULL, 0);
 	for (int i = n; i < n + 10; ++i)
 	{
 		cout << i << " ";
@@ -521,9 +526,9 @@ void f3_1()
 {
 	double m = 0, S, n = 0, p = 0;
 	show_title(dz_list_names[0][10], dz_list_names[1][10]);
-	getvar(S, "Введите сумму заема", true, *greater_or_equals_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(n, "Введите количество лет", true, *greater_or_equals_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(p, "Введите процент", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(S, "Введите сумму заема", true, *greater_or_equals_1v, NULL, NULL, 0);
+	getvar(n, "Введите количество лет", true, *greater_or_equals_1v, NULL, NULL, 0);
+	getvar(p, "Введите процент", false);
 
 
 	p /= 100;
@@ -549,9 +554,9 @@ void f3_2()
 {
 	double m = 0, S, n = 0;
 	show_title(dz_list_names[0][11], dz_list_names[1][11]);
-	getvar(S, "Введите сумму заема", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(n, "Введите количество лет", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(m, "Введите месячную выплату", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(S, "Введите сумму заема", true, *greater_1v, NULL, NULL, 0);
+	getvar(n, "Введите количество лет", true, *greater_1v, NULL, NULL, 0);
+	getvar(m, "Введите месячную выплату", true, *greater_1v, NULL, NULL, 0);
 
 
 	double left = -pow(10, 10), right = pow(10, 10), middle = 0;
@@ -762,7 +767,7 @@ void sign(double a)
 void circle()
 {
 	double r;
-	getvar(r, "Введите радиус", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(r, "Введите радиус", true, *greater_1v, NULL, NULL, 0);
 	double S = pi * r * r;
 	cout << "Площадь круга = " << S << endl;
 }
@@ -770,9 +775,9 @@ void circle()
 void triangle()
 {
 	double a, b, c;
-	getvar(a, "Введите сторону a", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(b, "Введите сторону b", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(c, "Введите сторону c", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите сторону a", true, *greater_1v, NULL, NULL, 0);
+	getvar(b, "Введите сторону b", true, *greater_1v, NULL, NULL, 0);
+	getvar(c, "Введите сторону c", true, *greater_1v, NULL, NULL, 0);
 
 	if ((a + b < c) || (a + c < b) || (b + c < a))
 	{
@@ -790,8 +795,8 @@ void triangle()
 void pryamougolnik()
 {
 	double a, b;
-	getvar(a, "Введите сторону a", true, *greater_or_equals_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(b, "Введите сторону b", true, *greater_or_equals_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите сторону a", true, *greater_or_equals_1v, NULL, NULL, 0);
+	getvar(b, "Введите сторону b", true, *greater_or_equals_1v, NULL, NULL, 0);
 
 	cout << "Площадь = " << a * b << endl;
 }
@@ -805,7 +810,7 @@ void f4_1()
 	{
 		show_title(dz_list_names[0][15], dz_list_names[1][15]);
 		string hint = "Вводите числа (" + std::to_string(n) + "/10)";
-		getvar(t, hint, false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+		getvar(t, hint, false);
 		outf << t << endl;
 		n++;
 		system("cls");
@@ -837,7 +842,7 @@ void f4_2()
 {
 	show_title(dz_list_names[0][16], dz_list_names[1][16]);
 	double n;
-	getvar(n, "Введите число", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(n, "Введите число", false);
 	sign(n);
 	cout << endl;
 }
@@ -928,112 +933,6 @@ void f4_5()
 		cout << endl;
 	}
 }
-
-/*int rim_process(int dec, int lastN, int lastDec)
-{
-	return (lastN > dec) ? (lastDec - dec) : (lastDec + dec);
-}
-
-void f4_6() //ПЕРЕДЕЛАТЬ!!!
-{
-	system("cls");
-	SetColor(0, 14);
-	cout << "===============================" << endl;
-	cout << "          Задание 4-6" << endl;
-	cout << "-------------------------------" << endl;
-	cout << "Римские цифры" << endl;
-	SetColor(0, 15);
-	string rim = "a";
-	string nums = "IVXLCDM";
-	while ((rim.find_first_not_of(nums) != string::npos) ||
-		(rim.find("IIV") != string::npos) ||
-		(rim.find("IIX") != string::npos) ||
-		(rim.find("IIL") != string::npos) ||
-		(rim.find("IIC") != string::npos) ||
-		(rim.find("IID") != string::npos) ||
-		(rim.find("IIM") != string::npos) ||
-		(rim.find("VVX") != string::npos) ||
-		(rim.find("VVL") != string::npos) ||
-		(rim.find("VVC") != string::npos) ||
-		(rim.find("VVD") != string::npos) ||
-		(rim.find("VVM") != string::npos) ||
-		(rim.find("XXL") != string::npos) ||
-		(rim.find("XXC") != string::npos) ||
-		(rim.find("XXD") != string::npos) ||
-		(rim.find("XXM") != string::npos) ||
-		(rim.find("LLC") != string::npos) ||
-		(rim.find("LLD") != string::npos) ||
-		(rim.find("LLM") != string::npos) ||
-		(rim.find("CCD") != string::npos) ||
-		(rim.find("CCM") != string::npos) ||
-		(rim.find("DDM") != string::npos))
-	{
-		cout << "Введите положительное число в римской системе счисления \n(возможные символы: IVXLCDM) -> ";
-		cin >> rim;
-		if ((rim.find_first_not_of(nums) != string::npos) ||
-			(rim.find("IIV") != string::npos) ||
-			(rim.find("IIX") != string::npos) ||
-			(rim.find("IIL") != string::npos) ||
-			(rim.find("IIC") != string::npos) ||
-			(rim.find("IID") != string::npos) ||
-			(rim.find("IIM") != string::npos) ||
-			(rim.find("VVX") != string::npos) ||
-			(rim.find("VVL") != string::npos) ||
-			(rim.find("VVC") != string::npos) ||
-			(rim.find("VVD") != string::npos) ||
-			(rim.find("VVM") != string::npos) ||
-			(rim.find("XXL") != string::npos) ||
-			(rim.find("XXC") != string::npos) ||
-			(rim.find("XXD") != string::npos) ||
-			(rim.find("XXM") != string::npos) ||
-			(rim.find("LLC") != string::npos) ||
-			(rim.find("LLD") != string::npos) ||
-			(rim.find("LLM") != string::npos) ||
-			(rim.find("CCD") != string::npos) ||
-			(rim.find("CCM") != string::npos) ||
-			(rim.find("DDM") != string::npos))
-		{
-			cout << "Неверный ввод" << endl;
-		}
-	}
-	int num = 0, last_num = 0;
-	for (int i = rim.size() - 1; i >= 0; i--)
-	{
-		switch (rim[i])
-		{
-		case 'M':
-			num = rim_process(1000, last_num, num);
-			last_num = 1000;
-			break;
-		case 'D':
-			num = rim_process(500, last_num, num);
-			last_num = 500;
-			break;
-		case 'C':
-			num = rim_process(100, last_num, num);
-			last_num = 100;
-			break;
-		case 'L':
-			num = rim_process(50, last_num, num);
-			last_num = 50;
-			break;
-		case 'X':
-			num = rim_process(10, last_num, num);
-			last_num = 10;
-			break;
-		case 'V':
-			num = rim_process(5, last_num, num);
-			last_num = 5;
-			break;
-		case 'I':
-			num = rim_process(1, last_num, num);
-			last_num = 1;
-			break;
-		}
-	}
-
-	cout << "Число в арабской системе - " << num << endl;
-}*/
 
 void f4_6()
 {
@@ -1202,7 +1101,7 @@ void f4_7()
 {
 	show_title(dz_list_names[0][21], dz_list_names[1][21]);
 	int i = 0;
-	getvar(i, "Введите число", true, *greater_or_equals_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(i, "Введите число", true, *greater_or_equals_1v, NULL, NULL, 0);
 	int const_m = 31;
 	int const_a = 12;
 	int const_c = 15;
@@ -1342,9 +1241,9 @@ void f4_9()
 	int CS_in = 0, CS_out = 0; //входная СС и выходная СС
 	string num_in = "a", num_out = "", num_out_float = ""; //входное и выходное число
 
-	getvar(CS_in, "Введите исходную СС (2-36)", true, NULL, *is_in_or_equal, NULL, 0, 2, 36, 0, 0, 0);
+	getvar(CS_in, "Введите исходную СС (2-36)", true, NULL, *is_in_or_equal, NULL, 0, 2, 36);
 
-	getvar(CS_out, "Введите конечную СС (2-36)", true, NULL, *is_in_or_equal, NULL, 0, 2, 36, 0, 0, 0);
+	getvar(CS_out, "Введите конечную СС (2-36)", true, NULL, *is_in_or_equal, NULL, 0, 2, 36);
 
 	while ((num_in.find_first_not_of(alphabet + ",-") != string::npos) || (num_in.size() > 25))
 	{
@@ -1531,8 +1430,8 @@ void f5_1()
 {
 	show_title(dz_list_names[0][24], dz_list_names[1][24]);
 	int a = 0, b = 0;
-	getvar(a, "Введите положительное целое число а", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(b, "Введите положительное целое число b", true, *greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите положительное целое число а", true, *greater_1v, NULL, NULL, 0);
+	getvar(b, "Введите положительное целое число b", true, *greater_1v, NULL, NULL, 0);
 
 	int nod = 1;
 	for (int i = 1; i <= min(a, b); i++)
@@ -1548,7 +1447,7 @@ void f5_2()
 	show_title(dz_list_names[0][25], dz_list_names[1][25]);
 
 	int64_t a = 0;
-	getvar(a, "Введите целое число, большее или равное 2", true, *greater_or_equals_1v, NULL, NULL, 2, 0, 0, 0, 0, 0);
+	getvar(a, "Введите целое число, большее или равное 2", true, *greater_or_equals_1v, NULL, NULL, 2);
 	int k = 0, n = 1;
 	for (int64_t i = 3; i <= a; i++)
 	{
@@ -1732,10 +1631,10 @@ void f5_6()
 	cout << "Часть 1: настройка массива" << endl;
 	SetColor(0, 15);
 
-	getvar(a, "Введите нижнюю границу диапазона", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(b, "Введите верхнюю границу диапазона", false, greater_or_equals_1v, NULL, NULL, a, 0, 0, 0, 0, 0);
+	getvar(a, "Введите нижнюю границу диапазона", false);
+	getvar(b, "Введите верхнюю границу диапазона", false, greater_or_equals_1v, NULL, NULL, a);
 
-	getvar(n, "Введите количество чисел в массиве (в диапазоне 0 - 50 000 000)", true, NULL, is_in_or_equal, NULL, 0, 0, 50000000, 0, 0, 0);
+	getvar(n, "Введите количество чисел в массиве (в диапазоне 0 - 50 000 000)", true, NULL, is_in_or_equal, NULL, 0, 0, 50000000);
 
 	int* N = new int[n];
 	int* found = new int[n];
@@ -1748,7 +1647,7 @@ void f5_6()
 	cout << "Часть 2: поиск числа" << endl;
 	SetColor(0, 15);
 	int search = 0;
-	getvar(search, "Введите искомое число", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(search, "Введите искомое число", false);
 
 	if (!is_in_or_equal(search, a, b))
 	{
@@ -1870,7 +1769,7 @@ void f6_1()
 	int n = 0;
 	cout << "Максимальное количество шариков, при котором возможно напечатать все перестановки - 21" << endl;
 	cout << "Максимальное количество шариков, для которого можно рассчитать примерное число перестановок - 170" << endl;
-	getvar(n, "Введите количество шариков", true, greater_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(n, "Введите количество шариков", true, greater_1v, NULL, NULL, 0);
 	if (n > 170)
 	{
 		cout << "При вычислениях получен слишком большой результат (больше, чем 10^307)" << endl;
@@ -1966,6 +1865,7 @@ void f6_1()
 //сортировка   42 (точки)
 //разное       138 (check функция)
 //разное       146 (цифровой корень)
+//базы данных  111 (ханойская башня)
 
 void find_monach(int monach, int** table, int rows)
 {
@@ -2176,7 +2076,7 @@ void f7_1()
 				t[3] += temp[i];
 			}
 		}
-		int ti[4] = {strtol(t[0].c_str(), nullptr, 0), strtol(t[1].c_str(), nullptr, 0), strtol(t[2].c_str(), nullptr, 0), strtol(t[3].c_str(), nullptr, 0) };
+		int ti[4] = { strtol(t[0].c_str(), nullptr, 0), strtol(t[1].c_str(), nullptr, 0), strtol(t[2].c_str(), nullptr, 0), strtol(t[3].c_str(), nullptr, 0) };
 		if (((ti[0] >= ti[1]) && ti[1]) || ((ti[0] >= ti[2]) && ti[2]) || ((ti[0] >= ti[3]) && ti[3])) //если номер ученика меньше номера учителя
 		{
 			SetColor(0, 12);
@@ -2187,7 +2087,7 @@ void f7_1()
 		if (!ti[1] && !ti[2] && !ti[3])
 		{
 			SetColor(0, 14);
-			cout << "Предупреждение: в строке " << row+1 << " у учителя нет ни одного ученика; данная строка смысла не имеет" << endl;
+			cout << "Предупреждение: в строке " << row + 1 << " у учителя нет ни одного ученика; данная строка смысла не имеет" << endl;
 			SetColor(0, 15);
 		}
 		//если один и тот же монах встречается в качестве учителя повторно
@@ -2217,19 +2117,19 @@ void f7_1()
 					}
 				}
 			}
-			
+
 		}
 		if (!ok)
 		{
 			row = -1;
 			break;
 		}
-			
+
 		for (int i = 0; i < 4; i++)
 		{
 			monach_table[row][i] = strtol(t[i].c_str(), nullptr, 0);
 		}
-		
+
 		row++;
 	}
 
@@ -2341,10 +2241,10 @@ void f7_3()
 	show_title(dz_list_names[0][34], dz_list_names[1][34]);
 	typedef struct p { double x; double y; } point;
 	point A;
-	getvar(A.x, "Введите координату х точки А", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-	getvar(A.y, "Введите координату y точки А", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(A.x, "Введите координату х точки А", false);
+	getvar(A.y, "Введите координату y точки А", false);
 	int n = 0;
-	getvar(n, "Введите количество точек В (в диапазоне 0 - 10 000 000)", true, NULL, is_in_or_equal, NULL, 0, 0, 10000000, 0, 0, 0);
+	getvar(n, "Введите количество точек В (в диапазоне 1 - 10 000 000)", true, NULL, is_in_or_equal, NULL, 0, 1, 10000000);
 	point* B = new point[n];
 	cout << "Как вы хотите задать точки В? (вручную - H/случайно - любой другой символ)" << endl;
 	char act = _getch();
@@ -2355,8 +2255,8 @@ void f7_3()
 		SetColor(0, 15);
 		for (int i = 0; i < n; i++)
 		{
-			getvar(B[i].x, "Введите координату х точки B #" + to_string(i + 1), false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
-			getvar(B[i].y, "Введите координату y точки B #" + to_string(i + 1), false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+			getvar(B[i].x, "Введите координату х точки B #" + to_string(i + 1), false);
+			getvar(B[i].y, "Введите координату y точки B #" + to_string(i + 1), false);
 		}
 	}
 	else
@@ -2365,21 +2265,21 @@ void f7_3()
 		cout << "Выбран случайный способ ввода: необходимо задать диапазон для генерации случайных координат" << endl;
 		SetColor(0, 15);
 		double x_min = 0, x_max = 0, y_min = 0, y_max = 0;
-		getvar(x_min, "Введите нижнюю границу диапазона для х", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+		getvar(x_min, "Введите нижнюю границу диапазона для х", false);
 		x_max = x_min - 1;
 		while (x_max < x_min)
 		{
-			getvar(x_max, "Введите верхнюю границу диапазона для х", false, *greater_or_equals_1v, NULL, NULL, x_min, 0, 0, 0, 0, 0);
+			getvar(x_max, "Введите верхнюю границу диапазона для х", false, *greater_or_equals_1v, NULL, NULL, x_min);
 			if (x_max < x_min)
 			{
 				cout << "Неверный ввод" << endl;
 			}
 		}
-		getvar(y_min, "Введите нижнюю границу диапазона для y", false, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
+		getvar(y_min, "Введите нижнюю границу диапазона для y", false);
 		y_max = y_min - 1;
 		while (y_max < y_min)
 		{
-			getvar(y_max, "Введите верхнюю границу диапазона для y", false, *greater_or_equals_1v, NULL, NULL, y_min, 0, 0, 0, 0, 0);
+			getvar(y_max, "Введите верхнюю границу диапазона для y", false, *greater_or_equals_1v, NULL, NULL, y_min);
 			if (y_max < y_min)
 			{
 				cout << "Неверный ввод" << endl;
@@ -2431,7 +2331,7 @@ int check(string str) //функция для 7-4
 	string bounds = "()[]{}";
 	string temp2 = "";
 	int iterations = 0;
-	for (int i = 0; i < temp.size(); i++) //убираем пробелы
+	for (int i = 0; i < temp.size(); i++) //убираем лишние символы
 	{
 		if (findplace(bounds, temp[i]) != -1)
 		{
@@ -2548,6 +2448,139 @@ void f7_5()
 {
 	show_title(dz_list_names[0][36], dz_list_names[1][36]);
 	int64_t a = 0;
-	getvar(a, "Введите положительное целое число", true, greater_or_equals_1v, NULL, NULL, 0, 0, 0, 0, 0, 0);
+	getvar(a, "Введите положительное целое число", true, greater_or_equals_1v, NULL, NULL, 0);
 	digital_root_output(a);
+}
+
+void hanoi_output(int a, int** disks)
+{
+	for (int i = 0; i < a; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (disks[j][i] != 0)
+			{
+				cout << setw(3) << disks[j][i] << " ";
+			}
+			else
+			{
+				cout << "  | ";
+			}
+		}
+		cout << endl;
+	}
+}
+
+void hanoi(int a, int rec_count, int from, int to, int** disks)
+{
+	hanoi_output(a, disks);
+	switch (from)
+	{
+	case 1:
+		switch (to)
+		{
+		case 2:
+			int i1 = 0, j1 = 0, i2 = 2, j2 = 0;
+			for (int i = a - 1; i >= 0; i--)
+			{
+				if (disks[i1][i] != 0)
+				{
+					j1 = i;
+				}
+				if (disks[i2][i] != 0)
+				{
+					j2 = i;
+				}
+			}
+			swap(disks[i1][j1], disks[i2][j2]);
+			if (rec_count == 2)
+			{
+				i1 = 0; j1 = 0; i2 = 1; j2 = 0;
+				for (int i = a - 1; i >= 0; i--)
+				{
+					if (disks[i1][i] != 0)
+					{
+						j1 = i;
+					}
+					if (disks[i2][i] != 0)
+					{
+						j2 = i;
+					}
+				}
+				swap(disks[i1][j1], disks[i2][j2]);
+			}
+			i1 = 2; j1 = 0; i2 = 1; j2 = 0;
+			for (int i = a - 1; i >= 0; i--)
+			{
+				if (disks[i1][i] != 0)
+				{
+					j1 = i;
+				}
+				if (disks[i2][i] != 0)
+				{
+					j2 = i;
+				}
+			}
+			swap(disks[i1][j1], disks[i2][j2]);
+			break;
+		case 3:
+			break;
+		default:
+			break;
+		}
+		break;
+	case 2:
+		switch (to)
+		{
+		case 1:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+		}
+		break;
+	case 3:
+		switch (to)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+void f7_6() //ханойская башня
+{
+	show_title(dz_list_names[0][37], dz_list_names[1][37]);
+	int a = 64;
+	getvar(a, "Введите количество дисков", true, NULL, is_in_or_equal, NULL, 0, 1, 64);
+	int** disks = new int*[3];
+	for (int i = 0; i < 3; i++)
+	{
+		disks[i] = new int[a];
+	}
+
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < a; j++)
+		{
+			if (i == 0)
+				disks[i][j] = j + 1;
+			else
+				disks[i][j] = 0;
+		}
+
+	hanoi(a, a, 1, 3, disks);
+
+	for (int i = 0; i < 3; i++)
+	{
+		delete[] disks[i];
+	}
+	delete[] disks;
 }
