@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef INPUT_PROC_H
 #define INPUT_PROC_H
 
@@ -11,8 +11,8 @@ void getvar(int& var, string hintMessage, bool Positive, bool(*cond1var)(double,
 void getvar(int64_t& var, string hintMessage, bool Positive, bool(*cond1var)(double, double), bool(*cond2var)(double, double, double),
 	bool(*cond3var)(double, double, double, double), double a1, double a2, double b2, double a3, double b3, double c3);
 
-void getvar(double& var, string hintMessage, bool Positive, bool(*cond1var)(double, double), bool(*cond2var)(double, double, double),
-	bool(*cond3var)(double, double, double, double), double a1, double a2, double b2, double a3, double b3, double c3)
+void getvar(double& var, string hintMessage, bool Positive, bool(*cond1var)(double, double)=NULL, bool(*cond2var)(double, double, double) = NULL,
+	bool(*cond3var)(double, double, double, double) = NULL, double a1=0, double a2=0, double b2=0, double a3=0, double b3=0, double c3=0)
 {
 	string check_cond;
 	if (Positive)
@@ -91,8 +91,8 @@ void getvar(double& var, string hintMessage, bool Positive, bool(*cond1var)(doub
 	var = temp;
 }
 
-void getvar(float& var, string hintMessage, bool Positive, bool(*cond1var)(double, double), bool(*cond2var)(double, double, double),
-	bool(*cond3var)(double, double, double, double), double a1, double a2, double b2, double a3, double b3, double c3)
+void getvar(float& var, string hintMessage, bool Positive, bool(*cond1var)(double, double) = NULL, bool(*cond2var)(double, double, double) = NULL,
+	bool(*cond3var)(double, double, double, double) = NULL, double a1 = 0, double a2 = 0, double b2 = 0, double a3 = 0, double b3 = 0, double c3 = 0)
 {
 	string check_cond;
 	if (Positive)
@@ -171,8 +171,8 @@ void getvar(float& var, string hintMessage, bool Positive, bool(*cond1var)(doubl
 	var = temp;
 }
 
-void getvar(int& var, string hintMessage, bool Positive, bool(*cond1var)(double, double), bool(*cond2var)(double, double, double),
-	bool(*cond3var)(double, double, double, double), double a1, double a2, double b2, double a3, double b3, double c3)
+void getvar(int& var, string hintMessage, bool Positive, bool(*cond1var)(double, double) = NULL, bool(*cond2var)(double, double, double) = NULL,
+	bool(*cond3var)(double, double, double, double) = NULL, double a1 = 0, double a2 = 0, double b2 = 0, double a3 = 0, double b3 = 0, double c3 = 0)
 {
 	string check_cond;
 	if (Positive)
@@ -241,8 +241,8 @@ void getvar(int& var, string hintMessage, bool Positive, bool(*cond1var)(double,
 	var = temp;
 }
 
-void getvar(int64_t& var, string hintMessage, bool Positive, bool(*cond1var)(double, double), bool(*cond2var)(double, double, double),
-	bool(*cond3var)(double, double, double, double), double a1, double a2, double b2, double a3, double b3, double c3)
+void getvar(int64_t& var, string hintMessage, bool Positive, bool(*cond1var)(double, double) = NULL, bool(*cond2var)(double, double, double) = NULL,
+	bool(*cond3var)(double, double, double, double) = NULL, double a1 = 0, double a2 = 0, double b2 = 0, double a3 = 0, double b3 = 0, double c3 = 0)
 {
 	string check_cond;
 	if (Positive)
