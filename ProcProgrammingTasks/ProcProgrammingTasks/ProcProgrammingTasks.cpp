@@ -2454,105 +2454,67 @@ void f7_5()
 
 void hanoi_output(int a, int** disks)
 {
+	system("cls");
+	for (int i = 0; i < 3; i++)
+	{
+		for (int sorta = 0; sorta < a; sorta++)
+		{
+			for (int sortb = 0; sortb < a; sortb++)
+			{
+				if (disks[i][sorta] < disks[i][sortb])
+					swap(disks[i][sorta], disks[i][sortb]);
+			}
+		}
+	}
 	for (int i = 0; i < a; i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
 			if (disks[j][i] != 0)
 			{
+				SetColor(disks[j][i] / 16, (disks[j][i] % 16 == disks[j][i] / 16) ? 0 : disks[j][i] % 16);
 				cout << setw(3) << disks[j][i] << " ";
+				SetColor(0, 15);
 			}
 			else
 			{
+				SetColor(0, 15);
 				cout << "  | ";
 			}
 		}
 		cout << endl;
 	}
+	SetColor(0, 15);
+	int ms = (a > 10) ? (200 - 3 * a) : 200;
+	Sleep(ms);
 }
 
-void hanoi(int a, int rec_count, int from, int to, int** disks)
+void hanoi(int a, int r, int from, int to, int** disks)
 {
-	hanoi_output(a, disks);
-	switch (from)
+	if (r > 0)
 	{
-	case 1:
-		switch (to)
+		int buf = 0;
+		for (int i = 1; i <= 3; i++)
 		{
-		case 2:
-			int i1 = 0, j1 = 0, i2 = 2, j2 = 0;
-			for (int i = a - 1; i >= 0; i--)
+			if (!(i == from) && !(i == to))
 			{
-				if (disks[i1][i] != 0)
-				{
-					j1 = i;
-				}
-				if (disks[i2][i] != 0)
-				{
-					j2 = i;
-				}
+				buf = i;
+				break;
 			}
-			swap(disks[i1][j1], disks[i2][j2]);
-			if (rec_count == 2)
-			{
-				i1 = 0; j1 = 0; i2 = 1; j2 = 0;
-				for (int i = a - 1; i >= 0; i--)
-				{
-					if (disks[i1][i] != 0)
-					{
-						j1 = i;
-					}
-					if (disks[i2][i] != 0)
-					{
-						j2 = i;
-					}
-				}
-				swap(disks[i1][j1], disks[i2][j2]);
-			}
-			i1 = 2; j1 = 0; i2 = 1; j2 = 0;
-			for (int i = a - 1; i >= 0; i--)
-			{
-				if (disks[i1][i] != 0)
-				{
-					j1 = i;
-				}
-				if (disks[i2][i] != 0)
-				{
-					j2 = i;
-				}
-			}
-			swap(disks[i1][j1], disks[i2][j2]);
-			break;
-		case 3:
-			break;
-		default:
-			break;
 		}
-		break;
-	case 2:
-		switch (to)
+		hanoi(a, r - 1, from, buf, disks);
+		int pos = 0;
+		for (int i = 0; i < a; i++)
 		{
-		case 1:
-			break;
-		case 3:
-			break;
-		default:
-			break;
+			if (disks[from - 1][i] > 0)
+			{
+				pos = i;
+				break;
+			}
 		}
-		break;
-	case 3:
-		switch (to)
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		default:
-			break;
-		}
-		break;
-	default:
-		break;
+		swap(disks[from - 1][pos], disks[to - 1][0]);
+		hanoi_output(a, disks);
+		hanoi(a, r - 1, buf, to, disks);
 	}
 }
 
@@ -2561,7 +2523,7 @@ void f7_6() //ханойская башня
 	show_title(dz_list_names[0][37], dz_list_names[1][37]);
 	int a = 64;
 	getvar(a, "Введите количество дисков", true, NULL, is_in_or_equal, NULL, 0, 1, 64);
-	int** disks = new int*[3];
+	int** disks = new int* [3];
 	for (int i = 0; i < 3; i++)
 	{
 		disks[i] = new int[a];
